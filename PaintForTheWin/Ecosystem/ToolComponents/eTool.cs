@@ -6,6 +6,7 @@
         Ellipse,
         Rectangle,
         Line,
-        Rubber
+        Rubber,
+        Fill
     }
 }

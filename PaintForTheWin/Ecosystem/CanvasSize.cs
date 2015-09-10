@@ -8,5 +8,13 @@ namespace PaintForTheWin.Ecosystem
 {
     public class CanvasSize
     {
+        private int newHeight;
+        private int newWidth;
+
+        public CanvasSize(int newWidth, int newHeight)
+        {
+            this.newWidth = newWidth;
+            this.newHeight = newHeight;
+        }
     }
 }

@@ -8,5 +8,9 @@ namespace PaintForTheWin.Ecosystem.ToolComponents
 {
     public class Tool
     {
+        public Tool(eTool toolType)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

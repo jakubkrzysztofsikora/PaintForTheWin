@@ -67,12 +67,36 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="CanvasComponents\CanvasBackService.cs" />
+    <Compile Include="CanvasComponents\ChangeManagement\Change.cs" />
+    <Compile Include="CanvasComponents\ChangeManagement\ChangeStack.cs" />
+    <Compile Include="Ecosystem\CanvasSize.cs" />
+    <Compile Include="Ecosystem\eDirection.cs" />
+    <Compile Include="Ecosystem\FileSaver.cs" />
+    <Compile Include="Ecosystem\ToolComponents\eTool.cs" />
+    <Compile Include="Ecosystem\PaintingColor.cs" />
+    <Compile Include="Ecosystem\ToolComponents\Tool.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PaintingMediator.cs" />
+    <Compile Include="ProgramCommands\Draw.cs" />
+    <Compile Include="ProgramCommands\DrawingStrategies\EllipseStrategy.cs" />
+    <Compile Include="ProgramCommands\DrawingStrategies\IDrawingStrategy.cs" />
+    <Compile Include="ProgramCommands\DrawingStrategies\LineStrategy.cs" />
+    <Compile Include="ProgramCommands\DrawingStrategies\PencilStrategy.cs" />
+    <Compile Include="ProgramCommands\DrawingStrategies\RectangleStrategy.cs" />
+    <Compile Include="ProgramCommands\Fill.cs" />
+    <Compile Include="ProgramCommands\IProgramCommand.cs" />
+    <Compile Include="ProgramCommands\LoadImage.cs" />
+    <Compile Include="ProgramCommands\ProgramCommandFactory.cs" />
+    <Compile Include="ProgramCommands\Resize.cs" />
+    <Compile Include="ProgramCommands\Reverse.cs" />
+    <Compile Include="ProgramCommands\Rotate.cs" />
+    <Compile Include="ProgramCommands\Rub.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -100,6 +124,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

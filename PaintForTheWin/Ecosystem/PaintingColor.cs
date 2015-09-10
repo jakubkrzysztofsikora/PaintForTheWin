@@ -8,5 +8,9 @@ namespace PaintForTheWin.Ecosystem
 {
     public class PaintingColor
     {
+        public static PaintingColor CreateFromHex(string newColorInHex)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
