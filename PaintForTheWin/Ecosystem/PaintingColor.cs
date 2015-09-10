@@ -3,14 +3,38 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace PaintForTheWin.Ecosystem
 {
     public class PaintingColor
     {
-        public static PaintingColor CreateFromHex(string newColorInHex)
+        private Color _color;
+
+        private PaintingColor(Color color)
         {
-            throw new NotImplementedException();
+            _color = color;
+        }
+
+        public override bool Equals(object o)
+        {
+            PaintingColor colorToCompare = (PaintingColor)o;
+
+            return colorToCompare != null && this._color.Equals(colorToCompare._color);
+        }
+
+        public static PaintingColor CreateFromHex(String newColorInHex)
+        {
+            Color color = (Color) ColorConverter.ConvertFromString(newColorInHex);
+
+            return new PaintingColor(color);
+        }
+
+        public static PaintingColor CreateDefault()
+        {
+            Color color = new Color();
+
+            return new PaintingColor(color);
         }
     }
 }

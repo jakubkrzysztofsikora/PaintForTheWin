@@ -5,29 +5,32 @@ using System.Text;
 using System.Threading.Tasks;
 using PaintForTheWin.CanvasComponents;
 using PaintForTheWin.Ecosystem;
+using PaintForTheWin.Ecosystem.ToolComponents;
 
 namespace PaintForTheWin
 {
     public class PaintingMediator
     {
+        private Tool _currentTool = new Tool();
+
         public void ChangeActiveColor(string newColorInHex)
         {
-            throw new NotImplementedException();
+            _currentTool.ChangeColor(newColorInHex);
         }
 
         public object GetActiveColor()
         {
-            throw new NotImplementedException();
+            return _currentTool.GetColor();
         }
 
         public void ChangeToolTo(eTool toolType)
         {
-            throw new NotImplementedException();
+            _currentTool.ChangeType(toolType);
         }
 
         public object GetCurrentTool()
         {
-            throw new NotImplementedException();
+            return _currentTool;
         }
 
         public void SetCanvasService(CanvasBackService canvasService)
