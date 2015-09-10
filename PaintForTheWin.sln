@@ -5,6 +5,8 @@ VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaintForTheWin", "PaintForTheWin\PaintForTheWin.csproj", "{941E0611-387A-4441-AA0B-2EC26DEB1248}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaintTests", "PaintTests\PaintTests.csproj", "{AEE3EC1F-F48A-4899-A1BC-3AD60F4C27BB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{941E0611-387A-4441-AA0B-2EC26DEB1248}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{941E0611-387A-4441-AA0B-2EC26DEB1248}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{941E0611-387A-4441-AA0B-2EC26DEB1248}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AEE3EC1F-F48A-4899-A1BC-3AD60F4C27BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEE3EC1F-F48A-4899-A1BC-3AD60F4C27BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEE3EC1F-F48A-4899-A1BC-3AD60F4C27BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEE3EC1F-F48A-4899-A1BC-3AD60F4C27BB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
