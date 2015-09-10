@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Moq;
@@ -48,22 +49,25 @@ namespace PaintTests
         [TestCase(eTool.Ellipse)]
         [TestCase(eTool.Rectangle)]
         [TestCase(eTool.Line)]
+        [STAThread]
         public void ShouldDrawWithCurrentToolOnCanvas(eTool currentTool)
         {
             //Given
             PaintingMediator paint = new PaintingMediator();
             CanvasBackService canvasService = new CanvasBackService();
-            Mock<Canvas> canvasMock = new Mock<Canvas>();
+            Canvas canvasNode = new Canvas();
 
-            canvasService.SetCanvas(canvasMock.Object);
+            canvasNode.MouseDown += paint.onCanvasMouseDown;
+            canvasService.SetCanvas(canvasNode);
             paint.SetCanvasService(canvasService);
             paint.ChangeToolTo(currentTool);
+            int numberOfElementsOnCanvas = canvasNode.Children.Count;
 
             //When
-            canvasMock.Object.RaiseEvent(new RoutedEventArgs(Canvas.MouseDownEvent));
+            ImitateMouseDownOn(canvasNode);
 
             //Then
-            canvasMock.Verify(canvas => canvas.Children.Add(new UIElement()));
+            Assert.AreNotEqual(numberOfElementsOnCanvas, canvasNode.Children.Count);
         }
         
 
@@ -140,8 +144,8 @@ namespace PaintTests
             ProgramCommandFactory commandFactory = new ProgramCommandFactory();
             for (int i = 0; i < numberOfChangesToUndo; i++)
             {
-                IProgramCommand action = commandFactory.CreateDrawCommand(paint.GetCurrentTool());
-                changes.Push(action);
+                //IProgramCommand action = commandFactory.CreateDrawCommand(paint.GetCurrentTool(), )
+                //changes.Push(action);
             }
 
             //When
@@ -209,6 +213,11 @@ namespace PaintTests
             //Then
             IProgramCommand rotateCommand = commandFactory.CreateRotateCommand(degrees);
             canvasServiceMock.Verify(canvasService => canvasService.Apply(rotateCommand));
+        }
+
+        private void ImitateMouseDownOn(UIElement element)
+        {
+            element.RaiseEvent(new MouseButtonEventArgs(Mouse.PrimaryDevice, Environment.TickCount, MouseButton.Left) { RoutedEvent = Button.MouseDownEvent } );
         }
     }
 }

@@ -10,14 +10,16 @@ namespace PaintForTheWin.CanvasComponents
 {
     public class CanvasBackService
     {
+        private Canvas _canvasNode;
+
         public void SetCanvas(Canvas canvas)
         {
-            throw new NotImplementedException();
+            _canvasNode = canvas;
         }
 
-        public void Apply(IProgramCommand reverseCommand)
+        public void Apply(IProgramCommand action)
         {
-            throw new NotImplementedException();
+            action.Execute(_canvasNode);
         }
     }
 }

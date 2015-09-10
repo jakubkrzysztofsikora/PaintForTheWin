@@ -3,15 +3,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
+using System.Windows.Input;
 using PaintForTheWin.CanvasComponents;
 using PaintForTheWin.Ecosystem;
 using PaintForTheWin.Ecosystem.ToolComponents;
+using PaintForTheWin.ProgramCommands;
 
 namespace PaintForTheWin
 {
     public class PaintingMediator
     {
         private Tool _currentTool = new Tool();
+        private CanvasBackService _canvasService;
+        private ProgramCommandFactory _commandFactory = new ProgramCommandFactory();
+
+        #region Event Handlers
+
+        public void onCanvasMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            IProgramCommand action = _commandFactory.CreateDrawCommand(_currentTool, (Canvas) sender, e);
+
+            _canvasService.Apply(action);
+        }
+
+        #endregion
 
         public void ChangeActiveColor(string newColorInHex)
         {
@@ -35,7 +51,7 @@ namespace PaintForTheWin
 
         public void SetCanvasService(CanvasBackService canvasService)
         {
-            throw new NotImplementedException();
+            _canvasService = canvasService;
         }
 
         public void ChangeCanvasSize(int newWidth, int newHeight)

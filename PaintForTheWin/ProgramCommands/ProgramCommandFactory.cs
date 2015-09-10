@@ -3,15 +3,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
+using System.Windows.Input;
 using PaintForTheWin.Ecosystem;
+using PaintForTheWin.Ecosystem.ToolComponents;
+using PaintForTheWin.ProgramCommands.DrawingStrategies;
 
 namespace PaintForTheWin.ProgramCommands
 {
     public class ProgramCommandFactory
     {
-        public IProgramCommand CreateDrawCommand(object getCurrentTool)
+        public IProgramCommand CreateDrawCommand(Tool tool, Canvas canvasNode, MouseButtonEventArgs eventDetails)
         {
-            throw new NotImplementedException();
+            switch (tool.GetToolType())
+            {
+                case eTool.Pencil:
+                    return new Draw(tool, eventDetails.GetPosition(canvasNode), new PencilStrategy());
+                case eTool.Line:
+                    return new Draw(tool, eventDetails.GetPosition(canvasNode), new LineStrategy());
+                case eTool.Ellipse:
+                    return new Draw(tool, eventDetails.GetPosition(canvasNode), new EllipseStrategy());
+                case eTool.Rectangle:
+                    return new Draw(tool, eventDetails.GetPosition(canvasNode), new RectangleStrategy());
+                default:
+                    return new Draw(tool, eventDetails.GetPosition(canvasNode), new PencilStrategy());
+            }
         }
 
         public IProgramCommand CreateReverseCommand(eDirection direction)

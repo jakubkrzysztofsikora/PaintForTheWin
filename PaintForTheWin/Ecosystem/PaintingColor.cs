@@ -11,7 +11,7 @@ namespace PaintForTheWin.Ecosystem
     {
         private Color _color;
 
-        private PaintingColor(Color color)
+        public PaintingColor(Color color)
         {
             _color = color;
         }
@@ -35,6 +35,11 @@ namespace PaintForTheWin.Ecosystem
             Color color = new Color();
 
             return new PaintingColor(color);
+        }
+
+        public Color GetNativeColorObject()
+        {
+            return _color;
         }
     }
 }

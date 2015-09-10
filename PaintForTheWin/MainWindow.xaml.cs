@@ -23,6 +23,8 @@ namespace PaintForTheWin
         public MainWindow()
         {
             InitializeComponent();
+            PaintingMediator paint = new PaintingMediator();
+            this.canvasNode.MouseUp += paint.onCanvasMouseDown;
         }
     }
 }

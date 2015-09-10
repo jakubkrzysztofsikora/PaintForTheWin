@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PaintForTheWin"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
+        Title="Paint For The Win">
+    <Grid Background="LightGray">
+        <Canvas x:Name="canvasNode" HorizontalAlignment="Left" Height="480" VerticalAlignment="Top" Width="719" Background="White"/>
+
     </Grid>
 </Window>
