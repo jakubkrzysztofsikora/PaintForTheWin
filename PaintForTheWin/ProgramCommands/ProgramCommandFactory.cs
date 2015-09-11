@@ -33,7 +33,7 @@ namespace PaintForTheWin.ProgramCommands
 
         public IProgramCommand CreateReverseCommand(eDirection direction)
         {
-            throw new NotImplementedException();
+            return new Reverse(direction);
         }
 
         public IProgramCommand CreateRotateCommand(int degrees)

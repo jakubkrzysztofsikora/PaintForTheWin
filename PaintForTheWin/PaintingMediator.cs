@@ -106,7 +106,8 @@ namespace PaintForTheWin
 
         public void Reverse(eDirection direction)
         {
-            throw new NotImplementedException();
+            IProgramCommand reverseAction = _commandFactory.CreateReverseCommand(direction);
+            _canvasService.Apply(reverseAction);
         }
 
         public void Rotate(int degrees)

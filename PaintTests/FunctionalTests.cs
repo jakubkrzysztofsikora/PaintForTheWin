@@ -199,19 +199,28 @@ namespace PaintTests
 
         [TestCase(eDirection.Horizontal)]
         [TestCase(eDirection.Vertical)]
+        [STAThread]
         public void ShouldReverseCanvas(eDirection direction)
         {
             //Given
             PaintingMediator paint = new PaintingMediator();
-            Mock<CanvasBackService> canvasServiceMock = new Mock<CanvasBackService>();
-            ProgramCommandFactory commandFactory = new ProgramCommandFactory();
+            CanvasBackService canvasService = new CanvasBackService();
+            Canvas canvasNode = new Canvas();
+
+            canvasService.SetCanvas(canvasNode);
+            paint.SetCanvasService(canvasService);
 
             //When
             paint.Reverse(direction);
 
             //Then
-            IProgramCommand reverseCommand = commandFactory.CreateReverseCommand(direction);
-            canvasServiceMock.Verify(canvasService => canvasService.Apply(reverseCommand));
+            ScaleTransform expectedTransform = new ScaleTransform();
+            if (direction.Equals(eDirection.Horizontal))
+                expectedTransform.ScaleX = -1;
+            else if (direction.Equals(eDirection.Vertical))
+                expectedTransform.ScaleY = -1;
+
+            Assert.AreEqual(expectedTransform.Value, canvasNode.RenderTransform.Value);
         }
 
         [TestCase(90)]
