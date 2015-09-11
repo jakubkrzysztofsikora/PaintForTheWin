@@ -14,43 +14,52 @@ namespace PaintForTheWin.ProgramCommands
 {
     public class ProgramCommandFactory
     {
+        private int _actionToChange = 0;
+
         public IProgramCommand CreateDrawCommand(Tool tool, Canvas canvasNode, MouseButtonEventArgs eventDetails)
         {
+            ++_actionToChange;
             switch (tool.GetToolType())
             {
                 case eTool.Pencil:
-                    return new Draw(tool, eventDetails.GetPosition(canvasNode), new PencilStrategy());
+                    return new Draw(_actionToChange, tool, eventDetails.GetPosition(canvasNode), new PencilStrategy());
                 case eTool.Line:
-                    return new Draw(tool, eventDetails.GetPosition(canvasNode), new LineStrategy());
+                    return new Draw(_actionToChange, tool, eventDetails.GetPosition(canvasNode), new LineStrategy());
                 case eTool.Ellipse:
-                    return new Draw(tool, eventDetails.GetPosition(canvasNode), new EllipseStrategy());
+                    return new Draw(_actionToChange, tool, eventDetails.GetPosition(canvasNode), new EllipseStrategy());
                 case eTool.Rectangle:
-                    return new Draw(tool, eventDetails.GetPosition(canvasNode), new RectangleStrategy());
+                    return new Draw(_actionToChange, tool, eventDetails.GetPosition(canvasNode), new RectangleStrategy());
+                case eTool.Rubber:
+                    return new Draw(_actionToChange, tool, eventDetails.GetPosition(canvasNode), new RubbingStrategy());
                 default:
-                    return new Draw(tool, eventDetails.GetPosition(canvasNode), new PencilStrategy());
+                    return new Draw(_actionToChange, tool, eventDetails.GetPosition(canvasNode), new PencilStrategy());
             }
         }
 
         public IProgramCommand CreateReverseCommand(eDirection direction)
         {
-            return new Reverse(direction);
+            ++_actionToChange;
+            return new Reverse(_actionToChange, direction);
         }
 
         public IProgramCommand CreateRotateCommand(int degrees)
         {
-            return new Rotate(degrees);
+            ++_actionToChange;
+            return new Rotate(_actionToChange, degrees);
         }
 
         public IProgramCommand CreateLoadImageCommand(Uri pathToImage)
         {
-            return new LoadImage(pathToImage);
+            ++_actionToChange;
+            return new LoadImage(_actionToChange, pathToImage);
         }
 
         public IProgramCommand CreateResizeCommand(double newWidth, double newHeight)
         {
+            ++_actionToChange;
             Size newSize = new Size(newWidth, newHeight);
 
-            return new Resize(newSize);
+            return new Resize(_actionToChange, newSize);
         }
     }
 }

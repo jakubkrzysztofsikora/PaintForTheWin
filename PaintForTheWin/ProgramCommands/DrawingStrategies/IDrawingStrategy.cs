@@ -11,6 +11,6 @@ namespace PaintForTheWin.ProgramCommands.DrawingStrategies
 {
     public interface IDrawingStrategy
     {
-        void Draw(Canvas element, Tool tool, Point startingPoint, Point currentPoint);
+        UIElement Draw(Canvas element, Tool tool, Point startingPoint, Point currentPoint);
     }
 }

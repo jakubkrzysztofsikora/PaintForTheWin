@@ -13,7 +13,7 @@ namespace PaintForTheWin.ProgramCommands.DrawingStrategies
 {
     public class RectangleStrategy : IDrawingStrategy
     {
-        public void Draw(Canvas element, Tool tool, Point startingPoint, Point currentPoint)
+        public UIElement Draw(Canvas element, Tool tool, Point startingPoint, Point currentPoint)
         {
             Rectangle rectangle = new Rectangle();
             rectangle.Fill = new SolidColorBrush(tool.GetNativeColorObject());
@@ -24,6 +24,8 @@ namespace PaintForTheWin.ProgramCommands.DrawingStrategies
             Canvas.SetTop(rectangle, currentPoint.Y);
 
             element.Children.Add(rectangle);
+
+            return rectangle;
         }
     }
 }

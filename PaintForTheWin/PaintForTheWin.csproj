@@ -72,6 +72,7 @@
     <Compile Include="CanvasComponents\ChangeManagement\Change.cs" />
     <Compile Include="CanvasComponents\ChangeManagement\ChangeStack.cs" />
     <Compile Include="Ecosystem\eDirection.cs" />
+    <Compile Include="Ecosystem\eFileExtension.cs" />
     <Compile Include="Ecosystem\FileSaver.cs" />
     <Compile Include="Ecosystem\ToolComponents\eTool.cs" />
     <Compile Include="Ecosystem\PaintingColor.cs" />
@@ -96,7 +97,7 @@
     <Compile Include="ProgramCommands\Resize.cs" />
     <Compile Include="ProgramCommands\Reverse.cs" />
     <Compile Include="ProgramCommands\Rotate.cs" />
-    <Compile Include="ProgramCommands\Rub.cs" />
+    <Compile Include="ProgramCommands\DrawingStrategies\RubbingStrategy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

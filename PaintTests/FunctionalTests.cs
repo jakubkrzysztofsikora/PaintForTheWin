@@ -50,6 +50,7 @@ namespace PaintTests
         [TestCase(eTool.Ellipse)]
         [TestCase(eTool.Rectangle)]
         [TestCase(eTool.Line)]
+        [TestCase(eTool.Rubber)]
         [STAThread]
         public void ShouldDrawWithCurrentToolOnCanvas(eTool currentTool)
         {
@@ -69,26 +70,6 @@ namespace PaintTests
 
             //Then
             Assert.AreNotEqual(numberOfElementsOnCanvas, canvasNode.Children.Count);
-        }
-        
-
-        [Test]
-        public void ShouldRubElementsOnCanvas()
-        {
-            //Given
-            PaintingMediator paint = new PaintingMediator();
-            CanvasBackService canvasService = new CanvasBackService();
-            Mock<Canvas> canvasMock = new Mock<Canvas>();
-
-            canvasService.SetCanvas(canvasMock.Object);
-            paint.SetCanvasService(canvasService);
-            paint.ChangeToolTo(eTool.Rubber);
-
-            //When
-            canvasMock.Object.RaiseEvent(new RoutedEventArgs(Canvas.MouseDownEvent));
-
-            //Then
-            canvasMock.Verify(canvas => canvas.Children.Add(new UIElement()));
         }
 
         [TestCase(400, 800)]
@@ -136,33 +117,44 @@ namespace PaintTests
             Assert.AreEqual(expectedBrush.ImageSource.ToString(), actualBrush.ImageSource.ToString());
         }
 
-        [TestCase("testSave.bmp")]
+        [TestCase("g:\\testSave.bmp")]
+        [STAThread]
         public void ShouldSaveImageToBmp(string expectedSaveLocationString)
         {
             //Given
-            Mock<PaintingMediator> paintMock = new Mock<PaintingMediator>();
-            CanvasBackService canvasManager = new CanvasBackService();
+            PaintingMediator paint = new PaintingMediator();
+            CanvasBackService canvasService = new CanvasBackService();
+            Canvas canvasNode = new Canvas();
+
+            canvasService.SetCanvas(canvasNode);
+            paint.SetCanvasService(canvasService);
+            paint.LoadImage("g:\\test.bmp");
 
             //When
-            paintMock.Object.Save(expectedSaveLocationString);
+            paint.Save(expectedSaveLocationString);
 
             //Then
             Uri saveLocation = new Uri(expectedSaveLocationString);
-            //paintMock.Verify(paint => paint.SaveToFile(saveLocation, canvasManager.GetCanvasContents()));
+            BitmapImage expectedImage = new BitmapImage(saveLocation);
+            Assert.IsNotNull(expectedImage);
         }
 
         [TestCase(1)]
         [TestCase(3)]
+        [STAThread]
         public void ShouldUndoChanges(int numberOfChangesToUndo)
         {
             //Given
             PaintingMediator paint = new PaintingMediator();
-            ChangeStack changes = new ChangeStack();
-            ProgramCommandFactory commandFactory = new ProgramCommandFactory();
+            CanvasBackService canvasService = new CanvasBackService();
+            Canvas canvasNode = new Canvas();
+
+            canvasService.SetCanvas(canvasNode);
+            paint.SetCanvasService(canvasService);
+
             for (int i = 0; i < numberOfChangesToUndo; i++)
             {
-                //IProgramCommand action = commandFactory.CreateDrawCommand(paint.GetCurrentTool(), )
-                //changes.Push(action);
+                paint.Rotate(90);
             }
 
             //When

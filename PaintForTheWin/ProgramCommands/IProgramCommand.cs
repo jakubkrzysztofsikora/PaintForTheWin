@@ -13,5 +13,6 @@ namespace PaintForTheWin.ProgramCommands
     {
         void Execute(Canvas element);
         void Retract();
+        int GetActionToChangeId();
     }
 }

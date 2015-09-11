@@ -13,16 +13,18 @@ namespace PaintForTheWin.ProgramCommands.DrawingStrategies
 {
     public class LineStrategy : IDrawingStrategy
     {
-        public void Draw(Canvas element, Tool tool, Point startingPoint, Point currentPoint)
+        public UIElement Draw(Canvas element, Tool tool, Point startingPoint, Point currentPoint)
         {
-            Line pencilDrawing = new Line();
-            pencilDrawing.Fill = new SolidColorBrush(tool.GetNativeColorObject());
-            pencilDrawing.X1 = startingPoint.X;
-            pencilDrawing.X2 = currentPoint.X;
-            pencilDrawing.Y1 = startingPoint.Y;
-            pencilDrawing.Y2 = currentPoint.Y;
+            Line line = new Line();
+            line.Fill = new SolidColorBrush(tool.GetNativeColorObject());
+            line.X1 = startingPoint.X;
+            line.X2 = currentPoint.X;
+            line.Y1 = startingPoint.Y;
+            line.Y2 = currentPoint.Y;
 
-            element.Children.Add(pencilDrawing);
+            element.Children.Add(line);
+
+            return line;
         }
     }
 }

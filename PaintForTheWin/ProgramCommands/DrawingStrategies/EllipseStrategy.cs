@@ -13,7 +13,7 @@ namespace PaintForTheWin.ProgramCommands.DrawingStrategies
 {
     public class EllipseStrategy : IDrawingStrategy
     {
-        public void Draw(Canvas element, Tool tool, Point startingPoint, Point currentPoint)
+        public UIElement Draw(Canvas element, Tool tool, Point startingPoint, Point currentPoint)
         {
             Ellipse ellipse = new Ellipse();
             ellipse.Fill = new SolidColorBrush(tool.GetNativeColorObject());
@@ -24,6 +24,8 @@ namespace PaintForTheWin.ProgramCommands.DrawingStrategies
             Canvas.SetTop(ellipse, currentPoint.Y);
 
             element.Children.Add(ellipse);
+
+            return ellipse;
             //todo: in all strategies - cover all possibilites of drawing startPint> currentPoint, startPoint<currentPoint etc.
         }
     }

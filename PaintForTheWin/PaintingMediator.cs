@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 using PaintForTheWin.CanvasComponents;
 using PaintForTheWin.Ecosystem;
 using PaintForTheWin.Ecosystem.ToolComponents;
@@ -17,13 +19,14 @@ namespace PaintForTheWin
         private readonly Tool _currentTool = new Tool();
         private CanvasBackService _canvasService;
         private readonly ProgramCommandFactory _commandFactory = new ProgramCommandFactory();
-        private IProgramCommand _currentCommandInAction;
+        private Draw _currentCommandInAction;
+        private FileSaver _saver = new FileSaver();
 
         #region Event Handlers
 
         public void OnCanvasMouseDown(object sender, MouseButtonEventArgs e)
         {
-            IProgramCommand action = _commandFactory.CreateDrawCommand(_currentTool, (Canvas) sender, e);
+            Draw action = _commandFactory.CreateDrawCommand(_currentTool, (Canvas) sender, e) as Draw;
             _currentCommandInAction = action;
 
             _canvasService.Apply(action);
@@ -33,6 +36,7 @@ namespace PaintForTheWin
         {
             if (e.ButtonState.Equals(MouseButtonState.Pressed) && _currentCommandInAction != null)
             {
+                _currentCommandInAction.SetNewCurrentPoint(e.GetPosition( (UIElement) sender));
                 _canvasService.Apply(_currentCommandInAction);
             }
         }
@@ -84,19 +88,21 @@ namespace PaintForTheWin
             _canvasService.Apply(loadAction);
         }
 
-        public void Save(string expectedSaveLocationString)
+        public void Save(string saveLocationString)
         {
-            throw new NotImplementedException();
+            Uri location = new Uri(saveLocationString);
+            RenderTargetBitmap preparedCanvas = _canvasService.GetCanvasPreparedToSave();
+            _saver.Save(eFileExtension.Bmp, location, preparedCanvas);
         }
 
         public void Undo()
         {
-            throw new NotImplementedException();
+            _canvasService.UndoLastChange();
         }
 
         public int GetNumberOfDoneChanges()
         {
-            throw new NotImplementedException();
+            return _canvasService.GetChangeStackCount();
         }
 
         public void Reverse(eDirection direction)

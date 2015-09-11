@@ -15,25 +15,41 @@ namespace PaintForTheWin.ProgramCommands
         private Tool _tool;
         private Point _startingPoint;
         private Point _currentPoint;
+        private readonly int _actionToChange;
+        private UIElement _addedElement;
+        private Canvas _canvasNode;
 
         private IDrawingStrategy _drawingStrategy;
 
-        public Draw(Tool tool, Point startingPosition, IDrawingStrategy strategy)
+        public Draw(int actionToChange, Tool tool, Point startingPosition, IDrawingStrategy strategy)
         {
             _tool = tool;
             _startingPoint = startingPosition;
             _currentPoint = startingPosition;
             _drawingStrategy = strategy;
+            _actionToChange = actionToChange;
         }
 
         public void Execute(Canvas element)
         {
-            _drawingStrategy.Draw(element, _tool, _startingPoint, _currentPoint);
+            _canvasNode = element;
+            _addedElement = _drawingStrategy.Draw(element, _tool, _startingPoint, _currentPoint);
         }
 
         public void Retract()
         {
-            throw new NotImplementedException();
+            _canvasNode.Children.Remove(_addedElement);
+        }
+
+        public int GetActionToChangeId()
+        {
+            return _actionToChange;
+        }
+
+        public void SetNewCurrentPoint(Point newPosition)
+        {
+            _startingPoint = _currentPoint;
+            _currentPoint = newPosition;
         }
     }
 }

@@ -12,10 +12,14 @@ namespace PaintForTheWin.ProgramCommands
     public class Reverse : IProgramCommand
     {
         private eDirection _direction;
+        private readonly int _actionToChange;
+        private Canvas _canvasNode;
+        private ScaleTransform _doneTransformation;
 
-        public Reverse(eDirection direction)
+        public Reverse(int actionToChange, eDirection direction)
         {
             _direction = direction;
+            _actionToChange = actionToChange;
         }
 
         public void Execute(Canvas element)
@@ -37,11 +41,21 @@ namespace PaintForTheWin.ProgramCommands
             }
 
             element.RenderTransform = newTransform;
+            _doneTransformation = newTransform;
+            _canvasNode = element;
         }
 
         public void Retract()
         {
-            throw new NotImplementedException();
+            _doneTransformation.ScaleX *= -1;
+            _doneTransformation.ScaleY *= -1;
+
+            _canvasNode.RenderTransform = _doneTransformation;
+        }
+
+        public int GetActionToChangeId()
+        {
+            return _actionToChange;
         }
     }
 }

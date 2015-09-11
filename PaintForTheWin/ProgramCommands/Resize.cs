@@ -11,21 +11,37 @@ namespace PaintForTheWin.ProgramCommands
     public class Resize : IProgramCommand
     {
         private Size _newSize;
+        private Size _oldSize;
+        private Canvas _canvasNode;
+        private readonly int _actionToChange;
 
-        public Resize(Size newSize)
+        public Resize(int actionToChange, Size newSize)
         {
             _newSize = newSize;
+            _actionToChange = actionToChange;
         }
 
         public void Execute(Canvas element)
         {
+            _oldSize = element.RenderSize;
+
             element.Width = _newSize.Width;
             element.Height = _newSize.Height;
+            element.RenderSize = _newSize;
+
+            _canvasNode = element;
         }
 
         public void Retract()
         {
-            throw new NotImplementedException();
+            _canvasNode.Width = _oldSize.Width;
+            _canvasNode.Height = _oldSize.Height;
+            _canvasNode.RenderSize = _oldSize;
+        }
+
+        public int GetActionToChangeId()
+        {
+            return _actionToChange;
         }
     }
 }

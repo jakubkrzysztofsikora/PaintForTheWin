@@ -8,21 +8,22 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using PaintForTheWin.Ecosystem.ToolComponents;
+using PaintForTheWin.ProgramCommands.DrawingStrategies;
 
-namespace PaintForTheWin.ProgramCommands.DrawingStrategies
+namespace PaintForTheWin.ProgramCommands
 {
-    public class PencilStrategy : IDrawingStrategy
+    class RubbingStrategy : IDrawingStrategy
     {
-        public UIElement Draw(Canvas canvas, Tool tool, Point startingPoint, Point currentPoint)
+        public UIElement Draw(Canvas element, Tool tool, Point startingPoint, Point currentPoint)
         {
             Line pencilDrawing = new Line();
-            pencilDrawing.Fill = new SolidColorBrush(tool.GetNativeColorObject());
+            pencilDrawing.Fill = new SolidColorBrush(Color.FromArgb(0,255,255,255));
             pencilDrawing.X1 = currentPoint.X;
             pencilDrawing.X2 = currentPoint.X;
             pencilDrawing.Y1 = currentPoint.Y;
             pencilDrawing.Y2 = currentPoint.Y;
-            
-            canvas.Children.Add(pencilDrawing);
+
+            element.Children.Add(pencilDrawing);
 
             return pencilDrawing;
         }
