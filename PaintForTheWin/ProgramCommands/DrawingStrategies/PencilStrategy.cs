@@ -26,7 +26,7 @@ namespace PaintForTheWin.ProgramCommands.DrawingStrategies
             pencilDrawing.X2 = currentPoint.X;
             pencilDrawing.Y1 = _previousPoint.Y;
             pencilDrawing.Y2 = currentPoint.Y;
-            
+
             canvas.Children.Add(pencilDrawing);
             _previousPoint = currentPoint;
 

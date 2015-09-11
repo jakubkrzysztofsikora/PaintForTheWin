@@ -13,8 +13,8 @@ namespace PaintForTheWin.ProgramCommands
 {
     public class Draw : IProgramCommand
     {
-        private Tool _tool;
-        private Point _startingPoint;
+        private readonly Tool _tool;
+        private readonly Point _startingPoint;
         private Point _currentPoint;
         private readonly int _actionToChange;
         private readonly List<UIElement> _addedElements;
@@ -36,7 +36,7 @@ namespace PaintForTheWin.ProgramCommands
         {
             _canvasNode = element;
 
-            if (!_tool.GetToolType().Equals(eTool.Pencil))
+            if (!_tool.GetToolType().Equals(eTool.Pencil) && !_tool.GetToolType().Equals(eTool.Rubber))
                 Retract();
 
             UIElement addedElement = _drawingStrategy.Draw(element, _tool, _startingPoint, _currentPoint);

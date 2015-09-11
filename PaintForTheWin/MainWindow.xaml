@@ -16,28 +16,32 @@
     </Window.InputBindings>
 
     <Grid Background="LightGray">
-        <Menu VerticalAlignment="Top">
-            <MenuItem VerticalAlignment="Top" HorizontalAlignment="Center" Header="_File">
-                <MenuItem Header="_Open" Click="MenuItemOpen_OnClick" />
-                <MenuItem Header="_Save" Click="MenuItemSave_OnClick" />
+        <Menu VerticalAlignment="Top" Background="#FF3F3F46">
+            <MenuItem VerticalAlignment="Top" HorizontalAlignment="Center" Header="_File" Foreground="#FFC7C7C7">
+                <MenuItem Header="_Open" Click="MenuItemOpen_OnClick" Foreground="Black" />
+                <MenuItem Header="_Save" Click="MenuItemSave_OnClick" Foreground="Black" />
                 <Separator />
-                <MenuItem Header="_Exit" Command="Close" />
+                <MenuItem Header="_Exit" Command="Close" Foreground="Black" />
             </MenuItem>
-            <MenuItem VerticalAlignment="Top" HorizontalAlignment="Center" Header="_Edit" SubmenuOpened="MenuEdit_OnClick">
-                <MenuItem Name="UndoButton" Header="_Undo" Command="Undo"/>
-                <MenuItem Header="_Change Image Size" Click="MenuItemResize_OnClick" />
+            <MenuItem VerticalAlignment="Top" HorizontalAlignment="Center" Header="_Edit" SubmenuOpened="MenuEdit_OnClick" Foreground="#FFC7C7C7">
+                <MenuItem Name="UndoButton" Header="_Undo" Command="Undo" Foreground="Black"/>
+                <MenuItem Header="_Change Image Size" Click="MenuItemResize_OnClick" Foreground="Black" />
                 <Separator />
-                <MenuItem Header="_Rotate Right" Click="MenuItemRotateRight_OnClick" />
-                <MenuItem Header="_Rotate Left" Click="MenuItemRotateLeft_OnClick" />
-                <MenuItem Header="_Rotate 180 degrees" Click="MenuItemFullRotate_OnClick" />
+                <MenuItem Header="_Rotate Right" Click="MenuItemRotateRight_OnClick" Foreground="Black" />
+                <MenuItem Header="_Rotate Left" Click="MenuItemRotateLeft_OnClick" Foreground="Black" />
+                <MenuItem Header="_Rotate 180 degrees" Click="MenuItemFullRotate_OnClick" Foreground="Black" />
                 <Separator />
-                <MenuItem Header="_Reverse Horizontally" Click="MenuItemReverseHorizontally_OnClick" />
-                <MenuItem Header="Reverse Vertically" Click="MenuItemReverseVertically_OnClick" />
+                <MenuItem Header="_Reverse Horizontally" Click="MenuItemReverseHorizontally_OnClick" Foreground="Black" />
+                <MenuItem Header="Reverse Vertically" Click="MenuItemReverseVertically_OnClick" Foreground="Black" />
             </MenuItem>
         </Menu>
-        <Canvas x:Name="canvasNode" Background="White" Margin="36,18,0,-5" HorizontalAlignment="Left" Width="720" Height="491" VerticalAlignment="Top"/>
-        <ToolBarTray HorizontalAlignment="Left" Width="36" Orientation="Vertical" Margin="0,18,0,0">
-            <ToolBar x:Name="toolBar" HorizontalAlignment="Right" Width="36" ToolBarTray.IsLocked="True" >
+        <Canvas x:Name="canvasNode" Background="White" Margin="36,18,0,-5" HorizontalAlignment="Left" Width="720" Height="480" VerticalAlignment="Top">
+            <Canvas.Effect>
+                <DropShadowEffect Color="LightGray" BlurRadius="10"/>
+            </Canvas.Effect>
+        </Canvas>
+        <ToolBarTray HorizontalAlignment="Left" Width="36" Orientation="Vertical" Margin="0,18,0,0" Background="#FF3F3F46">
+            <ToolBar x:Name="toolBar" HorizontalAlignment="Right" Width="36" ToolBarTray.IsLocked="True" Background="{x:Null}" Foreground="#FFC6C7C7" >
                 <Button x:Name="pencil" Content="" Width="28" Click="ChangeToolToPencil">
                     <Button.Background>
                         <ImageBrush ImageSource="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Black_pencil.svg/1024px-Black_pencil.svg.png"/>
@@ -46,6 +50,11 @@
                 <Button x:Name="Rubber" Content="" Width="28" Click="ChangeToolToRubber">
                     <Button.Background>
                         <ImageBrush ImageSource="https://cdn2.iconfinder.com/data/icons/windows-8-metro-style/128/eraser.png"/>
+                    </Button.Background>
+                </Button>
+                <Button x:Name="Rect" Content="" Width="28" Click="ChangeToolToRect">
+                    <Button.Background>
+                        <ImageBrush ImageSource="https://cdn2.iconfinder.com/data/icons/windows-8-metro-style/512/rectangle.png"/>
                     </Button.Background>
                 </Button>
             </ToolBar>

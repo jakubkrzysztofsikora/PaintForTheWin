@@ -67,6 +67,8 @@ namespace PaintForTheWin
 
         #endregion
 
+        #region Tool
+
         public void ChangeActiveColor(string newColorInHex)
         {
             _currentTool.ChangeColor(newColorInHex);
@@ -86,6 +88,15 @@ namespace PaintForTheWin
         {
             return _currentTool;
         }
+
+        public void ChangeThickness(int newToolThickness)
+        {
+            _currentTool.Thickness = newToolThickness;
+        }
+
+        #endregion
+
+        #region Canvas Service
 
         public void SetCanvasService(CanvasBackService canvasService)
         {
@@ -135,6 +146,8 @@ namespace PaintForTheWin
             IProgramCommand rotateAction = _commandFactory.CreateRotateCommand(degrees);
             _canvasService.Apply(rotateAction);
         }
+
+        #endregion
 
         private bool IsCurrentToolFloodFill()
         {

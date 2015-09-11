@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using PaintForTheWin.Ecosystem;
 using PaintForTheWin.Ecosystem.ToolComponents;
 using PaintForTheWin.ProgramCommands.DrawingStrategies;
 
@@ -21,15 +22,17 @@ namespace PaintForTheWin.ProgramCommands
         {
             FirstUsageAction(startingPoint);
             Line rubber = new Line();
-            rubber.Fill = new SolidColorBrush(Color.FromArgb(1,255,255,255));
-            rubber.Stroke = new SolidColorBrush(Color.FromArgb(1, 255, 255, 255));
-            rubber.StrokeThickness = 5;
+            PaintingColor white = PaintingColor.CreateFromHex("#ffffff");
+            rubber.Stroke = new SolidColorBrush(white.GetNativeColorObject());
+            rubber.StrokeThickness = tool.Thickness;
             rubber.X1 = _previousPoint.X;
             rubber.X2 = currentPoint.X;
             rubber.Y1 = _previousPoint.Y;
             rubber.Y2 = currentPoint.Y;
+            Canvas.SetZIndex(rubber, 1500);
 
             element.Children.Add(rubber);
+            
             _previousPoint = currentPoint;
 
             return rubber;

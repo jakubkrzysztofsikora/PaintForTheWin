@@ -110,11 +110,13 @@ namespace PaintForTheWin
         private void ChangeToolToPencil(object sender, RoutedEventArgs e)
         {
             _paint.ChangeToolTo(eTool.Pencil);
+            _paint.ChangeThickness(1);
         }
 
         private void ChangeToolToRubber(object sender, RoutedEventArgs e)
         {
             _paint.ChangeToolTo(eTool.Rubber);
+            _paint.ChangeThickness(15);
         }
 
         private void MenuEdit_OnClick(object sender, RoutedEventArgs e)
@@ -123,6 +125,11 @@ namespace PaintForTheWin
                 this.UndoButton.IsEnabled = true;
             else
                 this.UndoButton.IsEnabled = false;
+        }
+
+        private void ChangeToolToRect(object sender, RoutedEventArgs e)
+        {
+            _paint.ChangeToolTo(eTool.Rectangle);
         }
     }
 }

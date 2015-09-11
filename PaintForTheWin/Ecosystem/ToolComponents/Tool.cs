@@ -10,9 +10,9 @@ namespace PaintForTheWin.Ecosystem.ToolComponents
 {
     public class Tool
     {
+        public int Thickness { get; set; }
         private eTool _type;
         private PaintingColor _color = PaintingColor.CreateDefault();
-        private double _thickness = 1;
 
         public Tool()
         {
@@ -57,11 +57,6 @@ namespace PaintForTheWin.Ecosystem.ToolComponents
                 return true;
 
             return false;
-        }
-
-        public double GetThickness()
-        {
-            return _thickness;
         }
     }
 }
