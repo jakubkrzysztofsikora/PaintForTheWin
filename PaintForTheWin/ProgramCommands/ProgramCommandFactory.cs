@@ -61,5 +61,11 @@ namespace PaintForTheWin.ProgramCommands
 
             return new Resize(_actionToChange, newSize);
         }
+
+        public IProgramCommand CreateFillCommand(Tool tool, UIElement sender, MouseButtonEventArgs mouseButtonEventArgs)
+        {
+            ++_actionToChange;
+            return new Fill(_actionToChange, tool.GetColor(), sender);
+        }
     }
 }

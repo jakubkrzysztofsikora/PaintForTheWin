@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 using PaintForTheWin.CanvasComponents.ChangeManagement;
 using PaintForTheWin.ProgramCommands;
 
@@ -55,6 +56,12 @@ namespace PaintForTheWin.CanvasComponents
         public int GetChangeStackCount()
         {
             return _changeStack.GetCount();
+        }
+
+        public void AddEventHandlerToLastChild(PaintingMediator paintingMediator)
+        {
+            Shape lastChild = _canvasNode.Children[_canvasNode.Children.Count - 1] as Shape;
+            lastChild.MouseDown += paintingMediator.OnCanvasChildClick;
         }
     }
 }

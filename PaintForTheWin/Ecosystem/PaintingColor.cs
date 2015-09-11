@@ -23,6 +23,11 @@ namespace PaintForTheWin.Ecosystem
             return colorToCompare != null && this._color.Equals(colorToCompare._color);
         }
 
+        public override string ToString()
+        {
+            return _color.ToString();
+        }
+
         public static PaintingColor CreateFromHex(String newColorInHex)
         {
             Color color = (Color) ColorConverter.ConvertFromString(newColorInHex);

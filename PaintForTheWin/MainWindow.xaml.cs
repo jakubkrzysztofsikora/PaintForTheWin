@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using PaintForTheWin.CanvasComponents;
+using PaintForTheWin.Ecosystem;
 
 namespace PaintForTheWin
 {
@@ -24,7 +26,15 @@ namespace PaintForTheWin
         {
             InitializeComponent();
             PaintingMediator paint = new PaintingMediator();
-            this.canvasNode.MouseUp += paint.OnCanvasMouseDown;
+            CanvasBackService canvasService = new CanvasBackService();
+            Canvas canvasNode = this.canvasNode;
+
+            canvasNode.MouseDown += paint.OnCanvasMouseDown;
+            canvasNode.MouseMove += paint.OnCanvasMouseMove;
+            canvasService.SetCanvas(canvasNode);
+            paint.SetCanvasService(canvasService);
+            paint.ChangeToolTo(eTool.Pencil);
+            paint.ChangeActiveColor("#000000");
         }
     }
 }

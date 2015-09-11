@@ -169,24 +169,31 @@ namespace PaintTests
         }
 
         [Test]
+        [STAThread]
         public void ShouldFloodFillConsistentColorSpace()
         {
             //Given
             PaintingMediator paint = new PaintingMediator();
             CanvasBackService canvasService = new CanvasBackService();
-            Mock <Canvas> canvasMock = new Mock<Canvas>();
-            Rectangle rectangle = new Rectangle();
+            Canvas canvasNode = new Canvas();
 
-            canvasMock.Object.Children.Add(rectangle);
-            canvasService.SetCanvas(canvasMock.Object);
+            canvasService.SetCanvas(canvasNode);
             paint.SetCanvasService(canvasService);
+            canvasNode.MouseDown += paint.OnCanvasMouseDown;
+
+            paint.ChangeToolTo(eTool.Line);
+            paint.ChangeActiveColor("#ffffff");
+            ImitateMouseDownOn(canvasNode);
             paint.ChangeToolTo(eTool.Fill);
+            paint.ChangeActiveColor("#000000");
+            Line drawedLine = canvasNode.Children[0] as Line;
+            drawedLine.MouseDown += paint.OnCanvasChildClick;
 
             //When
-            //ImitateMouseDownOn(canvasNode);
+            ImitateMouseDownOn(drawedLine);
 
             //Then
-
+            Assert.AreEqual(paint.GetActiveColor().ToString(),drawedLine.Fill.ToString());
         }
 
         [TestCase(eDirection.Horizontal)]

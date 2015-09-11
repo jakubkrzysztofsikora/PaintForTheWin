@@ -26,24 +26,43 @@ namespace PaintForTheWin
 
         public void OnCanvasMouseDown(object sender, MouseButtonEventArgs e)
         {
-            Draw action = _commandFactory.CreateDrawCommand(_currentTool, (Canvas) sender, e) as Draw;
-            _currentCommandInAction = action;
+            if (!IsCurrentToolFloodFill())
+            {
+                Draw action = _commandFactory.CreateDrawCommand(_currentTool, (Canvas)sender, e) as Draw;
+                _currentCommandInAction = action;
 
-            _canvasService.Apply(action);
+                _canvasService.Apply(action);
+            }
         }
 
-        public void OnCanvasMouseMove(object sender, MouseButtonEventArgs e)
+        public void OnCanvasMouseMove(object sender, MouseEventArgs e)
         {
-            if (e.ButtonState.Equals(MouseButtonState.Pressed) && _currentCommandInAction != null)
+            if (e.LeftButton.Equals(MouseButtonState.Pressed) && _currentCommandInAction != null)
             {
-                _currentCommandInAction.SetNewCurrentPoint(e.GetPosition( (UIElement) sender));
-                _canvasService.Apply(_currentCommandInAction);
+                if (!IsCurrentToolFloodFill())
+                {
+                    _currentCommandInAction.SetNewCurrentPoint(e.GetPosition((UIElement)sender));
+                    _canvasService.Apply(_currentCommandInAction);
+                }
             }
         }
 
         public void OnCanvasMouseUp(object sender, MouseButtonEventArgs e)
         {
-            _currentCommandInAction = null;
+            if (!IsCurrentToolFloodFill())
+            {
+                _currentCommandInAction = null;
+                SubscribeToLatestChildEvent();
+            }
+        }
+
+        public void OnCanvasChildClick(object sender, MouseButtonEventArgs e)
+        {
+            if (IsCurrentToolFloodFill())
+            {
+                Fill fillAction = _commandFactory.CreateFillCommand(_currentTool, (UIElement) sender, e) as Fill;
+                _canvasService.Apply(fillAction);
+            }
         }
 
         #endregion
@@ -53,7 +72,7 @@ namespace PaintForTheWin
             _currentTool.ChangeColor(newColorInHex);
         }
 
-        public object GetActiveColor()
+        public PaintingColor GetActiveColor()
         {
             return _currentTool.GetColor();
         }
@@ -115,6 +134,16 @@ namespace PaintForTheWin
         {
             IProgramCommand rotateAction = _commandFactory.CreateRotateCommand(degrees);
             _canvasService.Apply(rotateAction);
+        }
+
+        private bool IsCurrentToolFloodFill()
+        {
+            return _currentTool.GetToolType() == eTool.Fill;
+        }
+
+        private void SubscribeToLatestChildEvent()
+        {
+            _canvasService.AddEventHandlerToLastChild(this);
         }
     }
 }
