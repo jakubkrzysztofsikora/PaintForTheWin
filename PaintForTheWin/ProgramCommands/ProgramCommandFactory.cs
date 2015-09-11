@@ -38,7 +38,7 @@ namespace PaintForTheWin.ProgramCommands
 
         public IProgramCommand CreateRotateCommand(int degrees)
         {
-            throw new NotImplementedException();
+            return new Rotate(degrees);
         }
 
         public IProgramCommand CreateLoadImageCommand(Uri pathToImage)

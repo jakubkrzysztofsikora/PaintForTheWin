@@ -226,19 +226,24 @@ namespace PaintTests
         [TestCase(90)]
         [TestCase(-90)]
         [TestCase(180)]
+        [STAThread]
         public void ShouldRotateCanvas(int degrees)
         {
             //Given
             PaintingMediator paint = new PaintingMediator();
-            Mock<CanvasBackService> canvasServiceMock = new Mock<CanvasBackService>();
-            ProgramCommandFactory commandFactory = new ProgramCommandFactory();
+            CanvasBackService canvasService = new CanvasBackService();
+            Canvas canvasNode = new Canvas();
+
+            canvasService.SetCanvas(canvasNode);
+            paint.SetCanvasService(canvasService);
 
             //When
             paint.Rotate(degrees);
 
             //Then
-            IProgramCommand rotateCommand = commandFactory.CreateRotateCommand(degrees);
-            canvasServiceMock.Verify(canvasService => canvasService.Apply(rotateCommand));
+            RotateTransform rotateTransform = new RotateTransform(degrees);
+
+            Assert.AreEqual(rotateTransform.Value, canvasNode.RenderTransform.Value);
         }
 
         private void ImitateMouseDownOn(UIElement element)

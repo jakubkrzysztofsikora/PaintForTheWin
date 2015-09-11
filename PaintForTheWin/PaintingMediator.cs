@@ -76,11 +76,6 @@ namespace PaintForTheWin
             _canvasService.Apply(resizeAction);
         }
 
-        public object GetCanvasSize()
-        {
-            throw new NotImplementedException();
-        }
-
         public void LoadImage(string uri)
         {
             Uri pathToImage = new Uri(uri);
@@ -112,7 +107,8 @@ namespace PaintForTheWin
 
         public void Rotate(int degrees)
         {
-            throw new NotImplementedException();
+            IProgramCommand rotateAction = _commandFactory.CreateRotateCommand(degrees);
+            _canvasService.Apply(rotateAction);
         }
     }
 }
