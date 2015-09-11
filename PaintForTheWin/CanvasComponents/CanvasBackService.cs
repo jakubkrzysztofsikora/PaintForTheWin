@@ -26,6 +26,7 @@ namespace PaintForTheWin.CanvasComponents
         {
             action.Execute(_canvasNode);
             _canvasNode.UpdateLayout();
+            _canvasNode.InvalidateVisual();
 
             _changeStack.Push(action);
         }

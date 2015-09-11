@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using PaintForTheWin.Ecosystem;
 using PaintForTheWin.Ecosystem.ToolComponents;
 
 namespace PaintForTheWin.ProgramCommands.DrawingStrategies
@@ -17,6 +18,7 @@ namespace PaintForTheWin.ProgramCommands.DrawingStrategies
         {
             Line line = new Line();
             line.Fill = new SolidColorBrush(tool.GetNativeColorObject());
+            line.Stroke = new SolidColorBrush(tool.GetNativeColorObject());
             line.X1 = startingPoint.X;
             line.X2 = currentPoint.X;
             line.Y1 = startingPoint.Y;

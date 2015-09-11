@@ -31,6 +31,7 @@ namespace PaintForTheWin
 
             canvasNode.MouseDown += paint.OnCanvasMouseDown;
             canvasNode.MouseMove += paint.OnCanvasMouseMove;
+            canvasNode.MouseUp += paint.OnCanvasMouseUp;
             canvasService.SetCanvas(canvasNode);
             paint.SetCanvasService(canvasService);
             paint.ChangeToolTo(eTool.Pencil);

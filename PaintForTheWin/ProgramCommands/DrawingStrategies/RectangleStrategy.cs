@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using PaintForTheWin.Ecosystem;
 using PaintForTheWin.Ecosystem.ToolComponents;
 
 namespace PaintForTheWin.ProgramCommands.DrawingStrategies
@@ -16,12 +17,12 @@ namespace PaintForTheWin.ProgramCommands.DrawingStrategies
         public UIElement Draw(Canvas element, Tool tool, Point startingPoint, Point currentPoint)
         {
             Rectangle rectangle = new Rectangle();
+            DrawingShapeSetuper shapeSetuper = new DrawingShapeSetuper();
             rectangle.Fill = new SolidColorBrush(tool.GetNativeColorObject());
-            rectangle.Width = currentPoint.X - startingPoint.X;
-            rectangle.Height = currentPoint.Y - startingPoint.Y;
+            rectangle.Width = shapeSetuper.GetWidthOfShape(startingPoint, currentPoint);
+            rectangle.Height = shapeSetuper.GetHeightOfShape(startingPoint, currentPoint);
 
-            Canvas.SetLeft(rectangle, startingPoint.X);
-            Canvas.SetTop(rectangle, currentPoint.Y);
+            shapeSetuper.SetUpShape(rectangle, startingPoint, currentPoint);
 
             element.Children.Add(rectangle);
 

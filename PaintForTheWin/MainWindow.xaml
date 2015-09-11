@@ -6,8 +6,22 @@
         xmlns:local="clr-namespace:PaintForTheWin"
         mc:Ignorable="d"
         Title="Paint For The Win">
+
     <Grid Background="LightGray">
-        <Canvas x:Name="canvasNode" HorizontalAlignment="Left" Height="480" VerticalAlignment="Top" Width="719" Background="White"/>
+        <Menu VerticalAlignment="Top" Height="17">
+            
+        </Menu>
+        <Canvas x:Name="canvasNode" Background="White" Margin="36,17,0,0" HorizontalAlignment="Left" Width="683" Height="463" VerticalAlignment="Top"/>
+        <ToolBarTray HorizontalAlignment="Left" Width="36" Orientation="Vertical" Margin="0,17,0,0">
+            <ToolBar x:Name="toolBar" HorizontalAlignment="Right" Width="36" ToolBarTray.IsLocked="True" >
+                <Button x:Name="button" Content="" Width="28">
+                    <Button.Background>
+                        <ImageBrush ImageSource="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Black_pencil.svg/1024px-Black_pencil.svg.png"/>
+                    </Button.Background>
+                </Button>
+
+            </ToolBar>
+        </ToolBarTray>
 
     </Grid>
 </Window>

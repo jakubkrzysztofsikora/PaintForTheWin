@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using PaintForTheWin.Ecosystem;
 using PaintForTheWin.Ecosystem.ToolComponents;
 using PaintForTheWin.ProgramCommands.DrawingStrategies;
 
@@ -33,12 +34,17 @@ namespace PaintForTheWin.ProgramCommands
         public void Execute(Canvas element)
         {
             _canvasNode = element;
+
+            if (!_tool.GetToolType().Equals(eTool.Pencil))
+                Retract();
+
             _addedElement = _drawingStrategy.Draw(element, _tool, _startingPoint, _currentPoint);
         }
 
         public void Retract()
         {
-            _canvasNode.Children.Remove(_addedElement);
+            if (_canvasNode.Children.Count > 0)
+                _canvasNode.Children.Remove(_addedElement);
         }
 
         public int GetActionToChangeId()
@@ -48,7 +54,6 @@ namespace PaintForTheWin.ProgramCommands
 
         public void SetNewCurrentPoint(Point newPosition)
         {
-            _startingPoint = _currentPoint;
             _currentPoint = newPosition;
         }
     }
