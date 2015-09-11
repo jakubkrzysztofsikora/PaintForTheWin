@@ -8,7 +8,9 @@
         Title="Paint For The Win">
     <Window.CommandBindings>
         <CommandBinding Command="Undo" Executed="MenuItemUndo_OnClick" />
+        <CommandBinding Command="Close" Executed="MenuItemExit_OnClick" />
     </Window.CommandBindings>
+
     <Window.InputBindings>
         <KeyBinding Key="z" Modifiers="Control" Command="Undo"/>
     </Window.InputBindings>
@@ -16,31 +18,36 @@
     <Grid Background="LightGray">
         <Menu VerticalAlignment="Top">
             <MenuItem VerticalAlignment="Top" HorizontalAlignment="Center" Header="_File">
-                <MenuItem Header="_Open" />
-                <MenuItem Header="_Save" />
+                <MenuItem Header="_Open" Click="MenuItemOpen_OnClick" />
+                <MenuItem Header="_Save" Click="MenuItemSave_OnClick" />
                 <Separator />
-                <MenuItem Header="_Exit" />
+                <MenuItem Header="_Exit" Command="Close" />
             </MenuItem>
-            <MenuItem VerticalAlignment="Top" HorizontalAlignment="Center" Header="_Edit">
-                <MenuItem Header="_Undo" Command="Undo"/>
-                <MenuItem Header="_Change Image Size" />
+            <MenuItem VerticalAlignment="Top" HorizontalAlignment="Center" Header="_Edit" SubmenuOpened="MenuEdit_OnClick">
+                <MenuItem Name="UndoButton" Header="_Undo" Command="Undo"/>
+                <MenuItem Header="_Change Image Size" Click="MenuItemResize_OnClick" />
                 <Separator />
-                <MenuItem Header="_Rotate Right" />
-                <MenuItem Header="_Rotate Left" />
+                <MenuItem Header="_Rotate Right" Click="MenuItemRotateRight_OnClick" />
+                <MenuItem Header="_Rotate Left" Click="MenuItemRotateLeft_OnClick" />
+                <MenuItem Header="_Rotate 180 degrees" Click="MenuItemFullRotate_OnClick" />
                 <Separator />
-                <MenuItem Header="_Reverse Horizontally" />
-                <MenuItem Header="Reverse Vertically" />
+                <MenuItem Header="_Reverse Horizontally" Click="MenuItemReverseHorizontally_OnClick" />
+                <MenuItem Header="Reverse Vertically" Click="MenuItemReverseVertically_OnClick" />
             </MenuItem>
         </Menu>
         <Canvas x:Name="canvasNode" Background="White" Margin="36,18,0,-5" HorizontalAlignment="Left" Width="720" Height="491" VerticalAlignment="Top"/>
         <ToolBarTray HorizontalAlignment="Left" Width="36" Orientation="Vertical" Margin="0,18,0,0">
             <ToolBar x:Name="toolBar" HorizontalAlignment="Right" Width="36" ToolBarTray.IsLocked="True" >
-                <Button x:Name="button" Content="" Width="28">
+                <Button x:Name="pencil" Content="" Width="28" Click="ChangeToolToPencil">
                     <Button.Background>
                         <ImageBrush ImageSource="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Black_pencil.svg/1024px-Black_pencil.svg.png"/>
                     </Button.Background>
                 </Button>
-
+                <Button x:Name="Rubber" Content="" Width="28" Click="ChangeToolToRubber">
+                    <Button.Background>
+                        <ImageBrush ImageSource="https://cdn2.iconfinder.com/data/icons/windows-8-metro-style/128/eraser.png"/>
+                    </Button.Background>
+                </Button>
             </ToolBar>
         </ToolBarTray>
 

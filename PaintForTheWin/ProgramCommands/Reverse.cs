@@ -14,7 +14,7 @@ namespace PaintForTheWin.ProgramCommands
         private eDirection _direction;
         private readonly int _actionToChange;
         private Canvas _canvasNode;
-        private ScaleTransform _doneTransformation;
+        private ScaleTransform _transformationSettings;
 
         public Reverse(int actionToChange, eDirection direction)
         {
@@ -24,33 +24,49 @@ namespace PaintForTheWin.ProgramCommands
 
         public void Execute(Canvas element)
         {
-            ScaleTransform newTransform = new ScaleTransform();
+            if (!(element.RenderTransform is ScaleTransform))
+            {
+                _transformationSettings = new ScaleTransform();
+            }
+            else
+            {
+                _transformationSettings = element.RenderTransform as ScaleTransform;
+            }
+
+            _transformationSettings.CenterX = element.RenderSize.Width / 2;
+            _transformationSettings.CenterY = element.RenderSize.Height / 2;
 
             switch (_direction)
             {
                 case eDirection.Horizontal:
-                    newTransform.ScaleX = -1;
+                    _transformationSettings.ScaleY *= -1;
                     break;
                 case eDirection.Vertical:
-                    newTransform.ScaleY = -1;
+                    _transformationSettings.ScaleX *= -1;
                     break;
                 default:
-                    newTransform.ScaleX = 0;
-                    newTransform.ScaleY = 0;
+                    _transformationSettings.ScaleX = 0;
+                    _transformationSettings.ScaleY = 0;
                     break;
             }
-
-            element.RenderTransform = newTransform;
-            _doneTransformation = newTransform;
+            
+            element.RenderTransform = _transformationSettings;
             _canvasNode = element;
         }
 
         public void Retract()
         {
-            _doneTransformation.ScaleX *= -1;
-            _doneTransformation.ScaleY *= -1;
+            switch (_direction)
+            {
+                case eDirection.Horizontal:
+                    _transformationSettings.ScaleY *= -1;
+                    break;
+                case eDirection.Vertical:
+                    _transformationSettings.ScaleX *= -1;
+                    break;
+            }
 
-            _canvasNode.RenderTransform = _doneTransformation;
+            _canvasNode.RenderTransform = _transformationSettings;
         }
 
         public int GetActionToChangeId()

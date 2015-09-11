@@ -14,18 +14,34 @@ namespace PaintForTheWin.ProgramCommands
 {
     class RubbingStrategy : IDrawingStrategy
     {
+        private Point _previousPoint;
+        private bool _firstUsage = true;
+
         public UIElement Draw(Canvas element, Tool tool, Point startingPoint, Point currentPoint)
         {
-            Line pencilDrawing = new Line();
-            pencilDrawing.Fill = new SolidColorBrush(Color.FromArgb(0,255,255,255));
-            pencilDrawing.X1 = currentPoint.X;
-            pencilDrawing.X2 = currentPoint.X;
-            pencilDrawing.Y1 = currentPoint.Y;
-            pencilDrawing.Y2 = currentPoint.Y;
+            FirstUsageAction(startingPoint);
+            Line rubber = new Line();
+            rubber.Fill = new SolidColorBrush(Color.FromArgb(1,255,255,255));
+            rubber.Stroke = new SolidColorBrush(Color.FromArgb(1, 255, 255, 255));
+            rubber.StrokeThickness = 5;
+            rubber.X1 = _previousPoint.X;
+            rubber.X2 = currentPoint.X;
+            rubber.Y1 = _previousPoint.Y;
+            rubber.Y2 = currentPoint.Y;
 
-            element.Children.Add(pencilDrawing);
+            element.Children.Add(rubber);
+            _previousPoint = currentPoint;
 
-            return pencilDrawing;
+            return rubber;
+        }
+
+        private void FirstUsageAction(Point startingPoint)
+        {
+            if (_firstUsage)
+            {
+                _previousPoint = startingPoint;
+                _firstUsage = false;
+            }
         }
     }
 }

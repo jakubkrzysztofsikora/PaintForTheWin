@@ -215,9 +215,9 @@ namespace PaintTests
             //Then
             ScaleTransform expectedTransform = new ScaleTransform();
             if (direction.Equals(eDirection.Horizontal))
-                expectedTransform.ScaleX = -1;
-            else if (direction.Equals(eDirection.Vertical))
                 expectedTransform.ScaleY = -1;
+            else if (direction.Equals(eDirection.Vertical))
+                expectedTransform.ScaleX = -1;
 
             Assert.AreEqual(expectedTransform.Value, canvasNode.RenderTransform.Value);
         }

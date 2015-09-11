@@ -16,6 +16,7 @@ namespace PaintForTheWin.ProgramCommands
         private readonly int _actionToChange;
         private Brush _previousBackground;
         private UIElementCollection _previousChildren;
+        private Size _previousSize;
         private Canvas _canvasNode;
 
         public LoadImage(int actionToChange, Uri pathToImage)
@@ -28,6 +29,7 @@ namespace PaintForTheWin.ProgramCommands
         {
             _previousChildren = element.Children;
             _previousBackground = element.Background;
+            _previousSize = new Size(element.Width, element.Height);
 
             element.Children.Clear();
             ImageBrush imageBrush = new ImageBrush { ImageSource = LoadImageFromUri(_pathToImage) };
@@ -50,6 +52,8 @@ namespace PaintForTheWin.ProgramCommands
             }
 
             _canvasNode.Background = _previousBackground;
+            _canvasNode.Width = _previousSize.Width;
+            _canvasNode.Height = _previousSize.Height;
         }
 
         public int GetActionToChangeId()

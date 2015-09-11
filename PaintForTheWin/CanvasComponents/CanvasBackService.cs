@@ -64,8 +64,11 @@ namespace PaintForTheWin.CanvasComponents
 
         public void AddEventHandlerToLastChild(PaintingMediator paintingMediator)
         {
-            Shape lastChild = _canvasNode.Children[_canvasNode.Children.Count - 1] as Shape;
-            lastChild.MouseDown += paintingMediator.OnCanvasChildClick;
+            if (_canvasNode.Children.Count > 0)
+            {
+                Shape lastChild = _canvasNode.Children[_canvasNode.Children.Count - 1] as Shape;
+                lastChild.MouseDown += paintingMediator.OnCanvasChildClick;
+            }
         }
     }
 }
