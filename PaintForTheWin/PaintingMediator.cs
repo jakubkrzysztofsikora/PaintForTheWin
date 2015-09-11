@@ -110,6 +110,11 @@ namespace PaintForTheWin
             _canvasService.Apply(resizeAction);
         }
 
+        public Size GetCanvasSize()
+        {
+            return _canvasService.GetSize();
+        }
+
         public void LoadImage(string uri)
         {
             Uri pathToImage = new Uri(uri);

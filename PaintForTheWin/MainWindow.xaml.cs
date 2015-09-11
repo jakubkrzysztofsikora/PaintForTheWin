@@ -1,17 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Microsoft.Win32;
 using PaintForTheWin.CanvasComponents;
 using PaintForTheWin.Ecosystem;
@@ -50,7 +41,12 @@ namespace PaintForTheWin
 
         private void MenuItemResize_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            ResizeWindow resizeWindow = new ResizeWindow(_paint.GetCanvasSize());
+
+            Nullable<bool> result = resizeWindow.ShowDialog();
+
+            if (result == true)
+                _paint.ChangeCanvasSize(resizeWindow.WidthInInput, resizeWindow.HeightInInput);
         }
 
         private void MenuItemRotateRight_OnClick(object sender, RoutedEventArgs e)
@@ -130,6 +126,33 @@ namespace PaintForTheWin
         private void ChangeToolToRect(object sender, RoutedEventArgs e)
         {
             _paint.ChangeToolTo(eTool.Rectangle);
+        }
+
+        private void ChangeToolToEllipse(object sender, RoutedEventArgs e)
+        {
+            _paint.ChangeToolTo(eTool.Ellipse);
+        }
+
+        private void ChangeToolToLine(object sender, RoutedEventArgs e)
+        {
+            _paint.ChangeToolTo(eTool.Line);
+        }
+
+        private void ChangeActiveColor(object sender, MouseButtonEventArgs e)
+        {
+            ColorPicker colorPickerWindow = new ColorPicker(_paint.GetActiveColor());
+            Nullable<bool> result = colorPickerWindow.ShowDialog();
+
+            if (result == true)
+                _paint.ChangeActiveColor(colorPickerWindow.SelectedPaintingColor.ToString());
+                PaintingColor activeColor = _paint.GetActiveColor();
+
+            ColorButton.Fill = new SolidColorBrush(activeColor.GetNativeColorObject());
+        }
+
+        private void ChangeToolToFill(object sender, RoutedEventArgs e)
+        {
+            _paint.ChangeToolTo(eTool.Fill);
         }
     }
 }

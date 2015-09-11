@@ -29,7 +29,6 @@ namespace PaintForTheWin.ProgramCommands
             rubber.X2 = currentPoint.X;
             rubber.Y1 = _previousPoint.Y;
             rubber.Y2 = currentPoint.Y;
-            Canvas.SetZIndex(rubber, 1500);
 
             element.Children.Add(rubber);
             
