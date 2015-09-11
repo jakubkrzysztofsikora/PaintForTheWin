@@ -6,13 +6,34 @@
         xmlns:local="clr-namespace:PaintForTheWin"
         mc:Ignorable="d"
         Title="Paint For The Win">
+    <Window.CommandBindings>
+        <CommandBinding Command="Undo" Executed="MenuItemUndo_OnClick" />
+    </Window.CommandBindings>
+    <Window.InputBindings>
+        <KeyBinding Key="z" Modifiers="Control" Command="Undo"/>
+    </Window.InputBindings>
 
     <Grid Background="LightGray">
-        <Menu VerticalAlignment="Top" Height="17">
-            
+        <Menu VerticalAlignment="Top">
+            <MenuItem VerticalAlignment="Top" HorizontalAlignment="Center" Header="_File">
+                <MenuItem Header="_Open" />
+                <MenuItem Header="_Save" />
+                <Separator />
+                <MenuItem Header="_Exit" />
+            </MenuItem>
+            <MenuItem VerticalAlignment="Top" HorizontalAlignment="Center" Header="_Edit">
+                <MenuItem Header="_Undo" Command="Undo"/>
+                <MenuItem Header="_Change Image Size" />
+                <Separator />
+                <MenuItem Header="_Rotate Right" />
+                <MenuItem Header="_Rotate Left" />
+                <Separator />
+                <MenuItem Header="_Reverse Horizontally" />
+                <MenuItem Header="Reverse Vertically" />
+            </MenuItem>
         </Menu>
-        <Canvas x:Name="canvasNode" Background="White" Margin="36,17,0,0" HorizontalAlignment="Left" Width="683" Height="463" VerticalAlignment="Top"/>
-        <ToolBarTray HorizontalAlignment="Left" Width="36" Orientation="Vertical" Margin="0,17,0,0">
+        <Canvas x:Name="canvasNode" Background="White" Margin="36,18,0,-5" HorizontalAlignment="Left" Width="720" Height="491" VerticalAlignment="Top"/>
+        <ToolBarTray HorizontalAlignment="Left" Width="36" Orientation="Vertical" Margin="0,18,0,0">
             <ToolBar x:Name="toolBar" HorizontalAlignment="Right" Width="36" ToolBarTray.IsLocked="True" >
                 <Button x:Name="button" Content="" Width="28">
                     <Button.Background>

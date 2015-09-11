@@ -52,6 +52,9 @@ namespace PaintForTheWin.CanvasComponents
 
             if (lastChange.GetId() != 0)
                 lastChange.Retract();
+
+            _canvasNode.UpdateLayout();
+            _canvasNode.InvalidateVisual();
         }
 
         public int GetChangeStackCount()

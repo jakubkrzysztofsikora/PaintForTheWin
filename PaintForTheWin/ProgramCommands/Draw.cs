@@ -17,7 +17,7 @@ namespace PaintForTheWin.ProgramCommands
         private Point _startingPoint;
         private Point _currentPoint;
         private readonly int _actionToChange;
-        private UIElement _addedElement;
+        private readonly List<UIElement> _addedElements;
         private Canvas _canvasNode;
 
         private IDrawingStrategy _drawingStrategy;
@@ -29,6 +29,7 @@ namespace PaintForTheWin.ProgramCommands
             _currentPoint = startingPosition;
             _drawingStrategy = strategy;
             _actionToChange = actionToChange;
+            _addedElements = new List<UIElement>();
         }
 
         public void Execute(Canvas element)
@@ -38,13 +39,20 @@ namespace PaintForTheWin.ProgramCommands
             if (!_tool.GetToolType().Equals(eTool.Pencil))
                 Retract();
 
-            _addedElement = _drawingStrategy.Draw(element, _tool, _startingPoint, _currentPoint);
+            UIElement addedElement = _drawingStrategy.Draw(element, _tool, _startingPoint, _currentPoint);
+
+            _addedElements.Add(addedElement);
         }
 
         public void Retract()
         {
             if (_canvasNode.Children.Count > 0)
-                _canvasNode.Children.Remove(_addedElement);
+            {
+                foreach (UIElement element in _addedElements)
+                {
+                    _canvasNode.Children.Remove(element);
+                }
+            }
         }
 
         public int GetActionToChangeId()

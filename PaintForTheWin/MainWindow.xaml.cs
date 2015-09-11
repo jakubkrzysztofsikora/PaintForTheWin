@@ -22,20 +22,27 @@ namespace PaintForTheWin
     /// </summary>
     public partial class MainWindow : Window
     {
+        private PaintingMediator _paint;
+
         public MainWindow()
         {
             InitializeComponent();
-            PaintingMediator paint = new PaintingMediator();
+            _paint = new PaintingMediator();
             CanvasBackService canvasService = new CanvasBackService();
             Canvas canvasNode = this.canvasNode;
 
-            canvasNode.MouseDown += paint.OnCanvasMouseDown;
-            canvasNode.MouseMove += paint.OnCanvasMouseMove;
-            canvasNode.MouseUp += paint.OnCanvasMouseUp;
+            canvasNode.MouseDown += _paint.OnCanvasMouseDown;
+            canvasNode.MouseMove += _paint.OnCanvasMouseMove;
+            canvasNode.MouseUp += _paint.OnCanvasMouseUp;
             canvasService.SetCanvas(canvasNode);
-            paint.SetCanvasService(canvasService);
-            paint.ChangeToolTo(eTool.Pencil);
-            paint.ChangeActiveColor("#000000");
+            _paint.SetCanvasService(canvasService);
+            _paint.ChangeToolTo(eTool.Pencil);
+            _paint.ChangeActiveColor("#000000");
+        }
+
+        private void MenuItemUndo_OnClick(object sender, RoutedEventArgs e)
+        {
+            _paint.Undo();
         }
     }
 }
