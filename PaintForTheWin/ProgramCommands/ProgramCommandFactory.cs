@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using PaintForTheWin.Ecosystem;
@@ -38,6 +39,18 @@ namespace PaintForTheWin.ProgramCommands
         public IProgramCommand CreateRotateCommand(int degrees)
         {
             throw new NotImplementedException();
+        }
+
+        public IProgramCommand CreateLoadImageCommand(Uri pathToImage)
+        {
+            return new LoadImage(pathToImage);
+        }
+
+        public IProgramCommand CreateResizeCommand(double newWidth, double newHeight)
+        {
+            Size newSize = new Size(newWidth, newHeight);
+
+            return new Resize(newSize);
         }
     }
 }

@@ -24,6 +24,7 @@ namespace PaintForTheWin.ProgramCommands.DrawingStrategies
             Canvas.SetTop(ellipse, currentPoint.Y);
 
             element.Children.Add(ellipse);
+            //todo: in all strategies - cover all possibilites of drawing startPint> currentPoint, startPoint<currentPoint etc.
         }
     }
 }

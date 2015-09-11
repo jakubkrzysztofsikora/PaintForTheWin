@@ -71,7 +71,6 @@
     <Compile Include="CanvasComponents\CanvasBackService.cs" />
     <Compile Include="CanvasComponents\ChangeManagement\Change.cs" />
     <Compile Include="CanvasComponents\ChangeManagement\ChangeStack.cs" />
-    <Compile Include="Ecosystem\CanvasSize.cs" />
     <Compile Include="Ecosystem\eDirection.cs" />
     <Compile Include="Ecosystem\FileSaver.cs" />
     <Compile Include="Ecosystem\ToolComponents\eTool.cs" />

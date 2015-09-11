@@ -14,17 +14,32 @@ namespace PaintForTheWin
 {
     public class PaintingMediator
     {
-        private Tool _currentTool = new Tool();
+        private readonly Tool _currentTool = new Tool();
         private CanvasBackService _canvasService;
-        private ProgramCommandFactory _commandFactory = new ProgramCommandFactory();
+        private readonly ProgramCommandFactory _commandFactory = new ProgramCommandFactory();
+        private IProgramCommand _currentCommandInAction;
 
         #region Event Handlers
 
-        public void onCanvasMouseDown(object sender, MouseButtonEventArgs e)
+        public void OnCanvasMouseDown(object sender, MouseButtonEventArgs e)
         {
             IProgramCommand action = _commandFactory.CreateDrawCommand(_currentTool, (Canvas) sender, e);
+            _currentCommandInAction = action;
 
             _canvasService.Apply(action);
+        }
+
+        public void OnCanvasMouseMove(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ButtonState.Equals(MouseButtonState.Pressed) && _currentCommandInAction != null)
+            {
+                _canvasService.Apply(_currentCommandInAction);
+            }
+        }
+
+        public void OnCanvasMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            _currentCommandInAction = null;
         }
 
         #endregion
@@ -54,9 +69,11 @@ namespace PaintForTheWin
             _canvasService = canvasService;
         }
 
-        public void ChangeCanvasSize(int newWidth, int newHeight)
+        public void ChangeCanvasSize(double newWidth, double newHeight)
         {
-            throw new NotImplementedException();
+            IProgramCommand resizeAction = _commandFactory.CreateResizeCommand(newWidth, newHeight);
+
+            _canvasService.Apply(resizeAction);
         }
 
         public object GetCanvasSize()
@@ -64,14 +81,12 @@ namespace PaintForTheWin
             throw new NotImplementedException();
         }
 
-        public void LoadImage(string testBmp)
+        public void LoadImage(string uri)
         {
-            throw new NotImplementedException();
-        }
+            Uri pathToImage = new Uri(uri);
+            IProgramCommand loadAction = _commandFactory.CreateLoadImageCommand(pathToImage);
 
-        public object GetCurrentCanvasBackground()
-        {
-            throw new NotImplementedException();
+            _canvasService.Apply(loadAction);
         }
 
         public void Save(string expectedSaveLocationString)

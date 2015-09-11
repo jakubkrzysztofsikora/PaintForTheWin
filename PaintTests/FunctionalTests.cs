@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Moq;
@@ -57,7 +58,7 @@ namespace PaintTests
             CanvasBackService canvasService = new CanvasBackService();
             Canvas canvasNode = new Canvas();
 
-            canvasNode.MouseDown += paint.onCanvasMouseDown;
+            canvasNode.MouseDown += paint.OnCanvasMouseDown;
             canvasService.SetCanvas(canvasNode);
             paint.SetCanvasService(canvasService);
             paint.ChangeToolTo(currentTool);
@@ -91,32 +92,48 @@ namespace PaintTests
         }
 
         [TestCase(400, 800)]
+        [STAThread]
         public void ShouldResizeCanvas(int newWidth, int newHeight)
         {
             //Given
             PaintingMediator paint = new PaintingMediator();
+            CanvasBackService canvasService = new CanvasBackService();
+            Canvas canvasNode = new Canvas();
+
+            canvasService.SetCanvas(canvasNode);
+            paint.SetCanvasService(canvasService);
 
             //When
             paint.ChangeCanvasSize(newWidth, newHeight);
 
             //Then
-            CanvasSize expectedSize = new CanvasSize(newWidth, newHeight);
-            Assert.AreEqual(expectedSize, paint.GetCanvasSize());
+            Size expectedSize = new Size(newWidth, newHeight);
+            Assert.AreEqual(expectedSize, canvasService.GetSize());
         }
 
-        [Test]
-        public void ShouldLoadBmpImage()
+        [TestCase("c:\\test.bmp")]
+        [STAThread]
+        public void ShouldLoadBmpImage(string path)
         {
             //Given
             PaintingMediator paint = new PaintingMediator();
+            CanvasBackService canvasService = new CanvasBackService();
+            Canvas canvasNode = new Canvas();
+
+            canvasService.SetCanvas(canvasNode);
+            paint.SetCanvasService(canvasService);
 
             //When
-            paint.LoadImage("test.bmp");
+            paint.LoadImage(path);
 
             //Then
             //Loaded image should be in the background of canvas
-            BitmapImage expectedImage = new BitmapImage();
-            Assert.AreEqual(expectedImage, paint.GetCurrentCanvasBackground());
+            Uri pathUri = new Uri(path);
+            BitmapImage expectedImage = new BitmapImage(pathUri);
+            ImageBrush expectedBrush = new ImageBrush(expectedImage);
+
+            ImageBrush actualBrush = canvasNode.Background as ImageBrush;
+            Assert.AreEqual(expectedBrush.ImageSource.ToString(), actualBrush.ImageSource.ToString());
         }
 
         [TestCase("testSave.bmp")]
@@ -174,10 +191,10 @@ namespace PaintTests
             paint.ChangeToolTo(eTool.Fill);
 
             //When
-            //Triggered Mouse Event 
-            
+            //ImitateMouseDownOn(canvasNode);
+
             //Then
-            
+
         }
 
         [TestCase(eDirection.Horizontal)]
