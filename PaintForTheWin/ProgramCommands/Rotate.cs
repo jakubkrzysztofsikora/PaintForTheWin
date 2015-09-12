@@ -11,7 +11,7 @@ namespace PaintForTheWin.ProgramCommands
 {
     public class Rotate : IProgramCommand
     {
-        private int _degrees;
+        private readonly int _degrees;
         private readonly int _actionToChange;
         private Canvas _canvasNode;
         private TransformGroup _currentSettings;
