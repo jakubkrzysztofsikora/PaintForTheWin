@@ -53,6 +53,11 @@ namespace PaintForTheWin.ProgramCommands
                     _oldBrush = shape.Fill;
                     shape.Fill = new SolidColorBrush(_newColor.GetNativeColorObject());
                     break;
+                case ePaintableObject.Line:
+                    Shape undefinedShape = (Shape) _sender;
+                    _oldBrush = undefinedShape.Stroke;
+                    undefinedShape.Stroke = new SolidColorBrush(_newColor.GetNativeColorObject());
+                    break;
             }
         }
 
@@ -68,6 +73,10 @@ namespace PaintForTheWin.ProgramCommands
                     Shape shape = (Shape)_sender;
                     shape.Fill = _oldBrush;
                     break;
+                case ePaintableObject.Line:
+                    Shape undefinedShape = (Shape)_sender;
+                    undefinedShape.Stroke = _oldBrush;
+                    break;
             }
         }
 
@@ -75,6 +84,8 @@ namespace PaintForTheWin.ProgramCommands
         {
             if (_sender is Canvas)
                 return ePaintableObject.Canvas;
+            else if (_sender is Line)
+                return ePaintableObject.Line;
             else if (_sender is Shape)
                 return ePaintableObject.Shape;
             else

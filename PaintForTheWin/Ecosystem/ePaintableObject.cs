@@ -4,6 +4,7 @@
     {
         Canvas,
         Shape,
+        Line,
         Default
     }
 }

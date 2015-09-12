@@ -86,7 +86,7 @@ namespace PaintForTheWin.CanvasComponents
             if (_canvasNode.Children.Count > 0)
             {
                 UIElement lastChild = _canvasNode.Children[_canvasNode.Children.Count - 1] as UIElement;
-                lastChild.AddHandler(UIElement.MouseDownEvent, new RoutedEventHandler(paintingMediator.OnCanvasChildClick));
+                lastChild.PreviewMouseDown += paintingMediator.OnCanvasChildClick;
             }
         }
 

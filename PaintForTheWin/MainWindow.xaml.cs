@@ -22,7 +22,7 @@ namespace PaintForTheWin
             _paint = new PaintingMediator();
             CanvasBackService canvasService = new CanvasBackService();
             Canvas canvasNode = this.canvasNode;
-
+            
             canvasNode.MouseDown += _paint.OnCanvasMouseDown;
             canvasNode.MouseMove += _paint.OnCanvasMouseMove;
             canvasNode.MouseUp += _paint.OnCanvasMouseUp;

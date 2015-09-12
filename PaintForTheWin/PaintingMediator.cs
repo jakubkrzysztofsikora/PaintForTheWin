@@ -35,8 +35,9 @@ namespace PaintForTheWin
             }
             else
             {
-                //Fill fillAction = _commandFactory.CreateFillCommand(_currentTool, (Canvas)sender) as Fill;
-                //_canvasService.Apply(fillAction);
+                UIElement originalSender = e.OriginalSource as UIElement;
+                Fill fillAction = _commandFactory.CreateFillCommand(_currentTool, originalSender) as Fill;
+                _canvasService.Apply(fillAction);
             }
         }
 
