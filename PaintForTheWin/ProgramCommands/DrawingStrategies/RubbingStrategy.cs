@@ -21,14 +21,12 @@ namespace PaintForTheWin.ProgramCommands
         public UIElement Draw(Canvas element, Tool tool, Point startingPoint, Point currentPoint)
         {
             FirstUsageAction(startingPoint);
-            Line rubber = new Line();
-            PaintingColor white = PaintingColor.CreateFromHex("#ffffff");
-            rubber.Stroke = new SolidColorBrush(white.GetNativeColorObject());
-            rubber.StrokeThickness = tool.Thickness;
-            rubber.X1 = _previousPoint.X;
-            rubber.X2 = currentPoint.X;
-            rubber.Y1 = _previousPoint.Y;
-            rubber.Y2 = currentPoint.Y;
+            Rectangle rubber = new Rectangle();
+            DrawingShapeSetuper shapeSetuper = new DrawingShapeSetuper();
+            rubber.Width = 10;
+            rubber.Height = 10;
+            shapeSetuper.SetUpShape(rubber, _previousPoint, currentPoint);
+            rubber.Fill = new SolidColorBrush(Color.FromRgb(255,255,255));
 
             element.Children.Add(rubber);
             
