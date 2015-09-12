@@ -12,7 +12,6 @@ namespace PaintForTheWin.ProgramCommands
     public class Rotate : IProgramCommand
     {
         private int _degrees;
-        private bool _clockWise;
         private readonly int _actionToChange;
         private Canvas _canvasNode;
         private TransformGroup _currentSettings;
@@ -22,11 +21,6 @@ namespace PaintForTheWin.ProgramCommands
         {
             _degrees = degrees;
             _actionToChange = actionToChange;
-
-            if (_degrees < 0)
-                _clockWise = false;
-            else
-                _clockWise = true;
         }
 
         public void Execute(Canvas element)
@@ -39,14 +33,27 @@ namespace PaintForTheWin.ProgramCommands
             rotate.Angle += _degrees;
             rotate.CenterX = element.RenderSize.Width / 2;
             rotate.CenterY = element.RenderSize.Height / 2;
-            translate.X = element.RenderSize.Height / 2 - element.RenderSize.Width / 2;
-            translate.Y = element.RenderSize.Width / 2 - element.RenderSize.Height / 2;
 
-            if (!_clockWise)
+            double newTranslateX = element.RenderSize.Height / 2 - element.RenderSize.Width / 2;
+            double newTranslateY = element.RenderSize.Width / 2 - element.RenderSize.Height / 2;
+
+            if (!CanvasInHorizontalPosition(element))
             {
-                translate.X *= -1;
-                translate.Y *= -1;
+                newTranslateX *= -1;
+                newTranslateY *= -1;
             }
+
+            if (IsCanvasBeingFliped(rotate))
+            {
+                translate.X = 0;
+                translate.Y = 0;
+            }
+            else
+            {
+                translate.X += newTranslateX;
+                translate.Y += newTranslateY;
+            }
+            
            
             element.RenderTransform = _currentSettings;
             _canvasNode = element;
@@ -60,6 +67,16 @@ namespace PaintForTheWin.ProgramCommands
         public int GetActionToChangeId()
         {
             return _actionToChange;
+        }
+
+        private bool IsCanvasBeingFliped(RotateTransform rotate)
+        {
+            return Math.Abs(rotate.Angle - 180) < 0.01 || Math.Abs(rotate.Angle - (-180)) < 0.01;
+        }
+
+        private bool CanvasInHorizontalPosition(Canvas canvas)
+        {
+            return canvas.RenderTransform.Value.OffsetX >= 0;
         }
 
         private void InitializeSettings(Canvas element)
