@@ -23,6 +23,12 @@ namespace PaintForTheWin.CanvasComponents
             _canvasNode = canvas;
         }
 
+        public void ClearCanvas()
+        {
+            _canvasNode.Background = new SolidColorBrush(Color.FromRgb(255,255,255));
+            _canvasNode.Children.Clear();
+        }
+
         public void Apply(IProgramCommand action)
         {
             action.Execute(_canvasNode);

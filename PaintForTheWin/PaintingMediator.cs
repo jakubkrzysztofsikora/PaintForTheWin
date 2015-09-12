@@ -108,6 +108,11 @@ namespace PaintForTheWin
             _canvasService = canvasService;
         }
 
+        public void New()
+        {
+            _canvasService.ClearCanvas();
+        }
+
         public void ChangeCanvasSize(double newWidth, double newHeight)
         {
             IProgramCommand resizeAction = _commandFactory.CreateResizeCommand(newWidth, newHeight);

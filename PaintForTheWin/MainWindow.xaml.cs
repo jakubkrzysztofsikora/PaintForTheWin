@@ -154,5 +154,10 @@ namespace PaintForTheWin
         {
             _paint.ChangeToolTo(eTool.Fill);
         }
+
+        private void MenuItemNew_OnClick(object sender, ExecutedRoutedEventArgs e)
+        {
+            _paint.New();
+        }
     }
 }

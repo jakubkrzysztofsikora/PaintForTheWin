@@ -7,6 +7,9 @@
         mc:Ignorable="d"
         Title="Paint For The Win">
     <Window.CommandBindings>
+        <CommandBinding Command="New" Executed="MenuItemNew_OnClick" />
+        <CommandBinding Command="Save" Executed="MenuItemSave_OnClick" />
+        <CommandBinding Command="Open" Executed="MenuItemOpen_OnClick" />
         <CommandBinding Command="Undo" Executed="MenuItemUndo_OnClick" />
         <CommandBinding Command="Close" Executed="MenuItemExit_OnClick" />
     </Window.CommandBindings>
@@ -18,8 +21,9 @@
     <Grid Background="LightGray">
         <Menu VerticalAlignment="Top" Background="#FF3F3F46">
             <MenuItem VerticalAlignment="Top" HorizontalAlignment="Center" Header="_File" Foreground="#FFC7C7C7">
-                <MenuItem Header="_Open" Click="MenuItemOpen_OnClick" Foreground="Black" />
-                <MenuItem Header="_Save" Click="MenuItemSave_OnClick" Foreground="Black" />
+                <MenuItem Header="_New" Command="New" Foreground="Black" />
+                <MenuItem Header="_Open" Command="Open" Foreground="Black" />
+                <MenuItem Header="_Save" Command="Save" Foreground="Black" />
                 <Separator />
                 <MenuItem Header="_Exit" Command="Close" Foreground="Black" />
             </MenuItem>
