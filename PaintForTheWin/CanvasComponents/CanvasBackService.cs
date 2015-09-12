@@ -28,6 +28,10 @@ namespace PaintForTheWin.CanvasComponents
             _canvasNode.Background = new SolidColorBrush(Color.FromRgb(255,255,255));
             _canvasNode.Children.Clear();
             _canvasNode.RenderTransform = new TransformGroup();
+            TransformGroup newTransformGroup = _canvasNode.RenderTransform as TransformGroup;
+            newTransformGroup.Children.Add(new RotateTransform());
+            newTransformGroup.Children.Add(new TranslateTransform());
+            newTransformGroup.Children.Add(new ScaleTransform());
         }
 
         public void Apply(IProgramCommand action)
