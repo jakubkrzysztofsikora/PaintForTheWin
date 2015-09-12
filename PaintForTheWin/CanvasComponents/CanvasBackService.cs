@@ -50,16 +50,7 @@ namespace PaintForTheWin.CanvasComponents
             Size actualRenderSize = GetActualRenderedSize();
 
             RenderTargetBitmap result = new RenderTargetBitmap((int)actualRenderSize.Width, (int)actualRenderSize.Height, 96d, 96d, PixelFormats.Pbgra32);
-
-            DrawingVisual visual = new DrawingVisual();
-            Rect bounds = VisualTreeHelper.GetDescendantBounds(_canvasNode);
-
-            using (DrawingContext ctx = visual.RenderOpen())
-            {
-                VisualBrush vb = new VisualBrush(_canvasNode);
-                ctx.DrawRectangle(vb, null, new Rect(new Point(), actualRenderSize));
-            }
-
+            DrawingVisual visual = GetPreparedCanvasVisualToRender(actualRenderSize);
             result.Render(visual);
 
             return result;
@@ -88,6 +79,19 @@ namespace PaintForTheWin.CanvasComponents
                 UIElement lastChild = _canvasNode.Children[_canvasNode.Children.Count - 1] as UIElement;
                 lastChild.PreviewMouseDown += paintingMediator.OnCanvasChildClick;
             }
+        }
+
+        private DrawingVisual GetPreparedCanvasVisualToRender(Size renderSize)
+        {
+            DrawingVisual visual = new DrawingVisual();
+
+            using (DrawingContext ctx = visual.RenderOpen())
+            {
+                VisualBrush vb = new VisualBrush(_canvasNode);
+                ctx.DrawRectangle(vb, null, new Rect(new Point(), renderSize));
+            }
+
+            return visual;
         }
 
         private Size GetActualRenderedSize()
