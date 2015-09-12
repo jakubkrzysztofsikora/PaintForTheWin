@@ -27,8 +27,16 @@ namespace PaintForTheWin.ProgramCommands
             InitializeSettings(element);
             ScaleTransform scaleTransform = _transformationSettings.Children[2] as ScaleTransform;
 
-            scaleTransform.CenterX = element.RenderSize.Width / 2;
-            scaleTransform.CenterY = element.RenderSize.Height / 2;
+            if (CanvasInHorizontalPosition(element))
+            {
+                scaleTransform.CenterX = element.RenderSize.Width / 2;
+                scaleTransform.CenterY = element.RenderSize.Height / 2;
+            }
+            else
+            {
+                scaleTransform.CenterX = element.RenderSize.Height / 2;
+                scaleTransform.CenterY = element.RenderSize.Width / 2;
+            }
 
             switch (_direction)
             {
@@ -68,6 +76,12 @@ namespace PaintForTheWin.ProgramCommands
         public int GetActionToChangeId()
         {
             return _actionToChange;
+        }
+
+        private bool CanvasInHorizontalPosition(Canvas canvas)
+        {
+            RotateTransform rotateSettings = _transformationSettings.Children[0] as RotateTransform;
+            return Math.Abs(rotateSettings.Angle % 180) < 0.01 || Math.Abs(-rotateSettings.Angle % 180) < 0.01 || Math.Abs(rotateSettings.Angle) < 0.01;
         }
 
         private void InitializeSettings(Canvas element)

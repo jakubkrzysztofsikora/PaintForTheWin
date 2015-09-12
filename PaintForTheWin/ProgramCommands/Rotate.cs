@@ -73,12 +73,6 @@ namespace PaintForTheWin.ProgramCommands
             double newTranslateX = canvas.RenderSize.Height / 2 - canvas.RenderSize.Width / 2;
             double newTranslateY = canvas.RenderSize.Width / 2 - canvas.RenderSize.Height / 2;
 
-            if (!CanvasInHorizontalPosition(canvas))
-            {
-                newTranslateX *= -1;
-                newTranslateY *= -1;
-            }
-
             translate.X += newTranslateX;
             translate.Y += newTranslateY;
         }
@@ -91,7 +85,7 @@ namespace PaintForTheWin.ProgramCommands
 
         private bool IsCanvasBeingFliped(RotateTransform rotate)
         {
-            return Math.Abs(rotate.Angle - 180) < 0.01 || Math.Abs(rotate.Angle - (-180)) < 0.01 || _degrees == 180;
+            return Math.Abs(rotate.Angle % 180) < 0.01 || _degrees == 180;
         }
 
         private bool CanvasInHorizontalPosition(Canvas canvas)
