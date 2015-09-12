@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using PaintForTheWin.CanvasComponents.ChangeManagement;
@@ -40,9 +41,20 @@ namespace PaintForTheWin.CanvasComponents
 
         public RenderTargetBitmap GetCanvasPreparedToSave()
         {
-            RenderTargetBitmap result = new RenderTargetBitmap((int)_canvasNode.Width, (int)_canvasNode.Height, 96d, 96d, System.Windows.Media.PixelFormats.Pbgra32);
-            
-            result.Render(_canvasNode);
+            Size actualRenderSize = GetActualRenderedSize();
+
+            RenderTargetBitmap result = new RenderTargetBitmap((int)actualRenderSize.Width, (int)actualRenderSize.Height, 96d, 96d, PixelFormats.Pbgra32);
+
+            DrawingVisual visual = new DrawingVisual();
+            Rect bounds = VisualTreeHelper.GetDescendantBounds(_canvasNode);
+
+            using (DrawingContext ctx = visual.RenderOpen())
+            {
+                VisualBrush vb = new VisualBrush(_canvasNode);
+                ctx.DrawRectangle(vb, null, new Rect(new Point(), actualRenderSize));
+            }
+
+            result.Render(visual);
 
             return result;
         }
@@ -70,6 +82,25 @@ namespace PaintForTheWin.CanvasComponents
                 UIElement lastChild = _canvasNode.Children[_canvasNode.Children.Count - 1] as UIElement;
                 lastChild.AddHandler(UIElement.MouseDownEvent, new RoutedEventHandler(paintingMediator.OnCanvasChildClick));
             }
+        }
+
+        private Size GetActualRenderedSize()
+        {
+            Size result;
+
+            if (_canvasNode.RenderTransform is TransformGroup)
+            {
+                TransformGroup transformSettings = _canvasNode.RenderTransform as TransformGroup;
+                TranslateTransform translate = transformSettings.Children[1] as TranslateTransform;
+
+                result = new Size(translate.X*2 + _canvasNode.Width, translate.Y*2 + _canvasNode.Height);
+            }
+            else
+            {
+                result = _canvasNode.RenderSize;
+            }
+
+            return result;
         }
     }
 }
