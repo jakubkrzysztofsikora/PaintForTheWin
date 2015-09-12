@@ -35,7 +35,7 @@
                 <MenuItem Header="Reverse Vertically" Click="MenuItemReverseVertically_OnClick" Foreground="Black" />
             </MenuItem>
         </Menu>
-        <Canvas x:Name="canvasNode" Background="White" Height="480" VerticalAlignment="Top" Margin="38,18,0,0" HorizontalAlignment="Left" Width="720">
+        <Canvas x:Name="canvasNode" ClipToBounds="True" Background="White" Height="480" VerticalAlignment="Top" Margin="38,18,0,0" HorizontalAlignment="Left" Width="720">
             <Canvas.Effect>
                 <DropShadowEffect Color="LightGray" BlurRadius="10"/>
             </Canvas.Effect>
