@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Effects;
 using Microsoft.Win32;
 using PaintForTheWin.CanvasComponents;
 using PaintForTheWin.Ecosystem;
@@ -15,6 +16,7 @@ namespace PaintForTheWin
     public partial class MainWindow : Window
     {
         private readonly PaintingMediator _paint;
+        private Button _currentlyClickedToolButton;
 
         public MainWindow()
         {
@@ -30,6 +32,7 @@ namespace PaintForTheWin
             _paint.SetCanvasService(canvasService);
             _paint.ChangeToolTo(eTool.Pencil);
             _paint.ChangeActiveColor("#000000");
+            SetButtonAsActive(pencil);
         }
 
         private void MenuItemUndo_OnClick(object sender, RoutedEventArgs e)
@@ -107,12 +110,16 @@ namespace PaintForTheWin
         {
             _paint.ChangeToolTo(eTool.Pencil);
             _paint.ChangeThickness(1);
+            Button clickedButton = sender as Button;
+            SetButtonAsActive(clickedButton);
         }
 
         private void ChangeToolToRubber(object sender, RoutedEventArgs e)
         {
             _paint.ChangeToolTo(eTool.Rubber);
             _paint.ChangeThickness(15);
+            Button clickedButton = sender as Button;
+            SetButtonAsActive(clickedButton);
         }
 
         private void MenuEdit_OnClick(object sender, RoutedEventArgs e)
@@ -126,16 +133,22 @@ namespace PaintForTheWin
         private void ChangeToolToRect(object sender, RoutedEventArgs e)
         {
             _paint.ChangeToolTo(eTool.Rectangle);
+            Button clickedButton = sender as Button;
+            SetButtonAsActive(clickedButton);
         }
 
         private void ChangeToolToEllipse(object sender, RoutedEventArgs e)
         {
             _paint.ChangeToolTo(eTool.Ellipse);
+            Button clickedButton = sender as Button;
+            SetButtonAsActive(clickedButton);
         }
 
         private void ChangeToolToLine(object sender, RoutedEventArgs e)
         {
             _paint.ChangeToolTo(eTool.Line);
+            Button clickedButton = sender as Button;
+            SetButtonAsActive(clickedButton);
         }
 
         private void ChangeActiveColor(object sender, MouseButtonEventArgs e)
@@ -153,11 +166,22 @@ namespace PaintForTheWin
         private void ChangeToolToFill(object sender, RoutedEventArgs e)
         {
             _paint.ChangeToolTo(eTool.Fill);
+            Button clickedButton = sender as Button;
+            SetButtonAsActive(clickedButton);
         }
 
         private void MenuItemNew_OnClick(object sender, ExecutedRoutedEventArgs e)
         {
             _paint.New();
+        }
+
+        private void SetButtonAsActive(Button button)
+        {
+            if (_currentlyClickedToolButton != null)
+                _currentlyClickedToolButton.Effect = null;
+
+            _currentlyClickedToolButton = button;
+            _currentlyClickedToolButton.Effect = new DropShadowEffect();
         }
     }
 }

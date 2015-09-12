@@ -45,38 +45,38 @@
             </Canvas.Effect>
         </Canvas>
         <ToolBarTray HorizontalAlignment="Left" Width="36" Orientation="Vertical" Margin="0,18,0,0" Background="#FF3F3F46">
-            <ToolBar x:Name="toolBar" HorizontalAlignment="Right" Width="36" ToolBarTray.IsLocked="True" Background="{x:Null}" Foreground="{x:Null}" >
-                <Button x:Name="pencil" Content="" Width="28" Click="ChangeToolToPencil">
+            <ToolBar x:Name="toolBar" HorizontalAlignment="Right" Width="36" ToolBarTray.IsLocked="True" Background="{x:Null}" Foreground="{x:Null}" Height="246" VerticalAlignment="Top" Margin="0,0,0,-76" >
+                <Button x:Name="pencil" Content="" Width="28" Click="ChangeToolToPencil" Margin="0,5">
                     <Button.Background>
-                        <ImageBrush ImageSource="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Black_pencil.svg/1024px-Black_pencil.svg.png"/>
+                        <ImageBrush ImageSource="Resources/pencil.png"/>
                     </Button.Background>
                 </Button>
-                <Button x:Name="Rubber" Content="" Width="28" Click="ChangeToolToRubber">
+                <Button x:Name="Rubber" Content="" Width="28" Click="ChangeToolToRubber" Margin="0,5">
                     <Button.Background>
-                        <ImageBrush ImageSource="https://cdn2.iconfinder.com/data/icons/windows-8-metro-style/128/eraser.png"/>
+                        <ImageBrush ImageSource="Resources/rubber.png"/>
                     </Button.Background>
                 </Button>
-                <Button x:Name="Rect" Content="" Width="28" Click="ChangeToolToRect">
+                <Button x:Name="Rect" Content="" Width="28" Click="ChangeToolToRect" Margin="0,5">
                     <Button.Background>
-                        <ImageBrush ImageSource="https://cdn2.iconfinder.com/data/icons/windows-8-metro-style/512/rectangle.png"/>
+                        <ImageBrush ImageSource="Resources/rect.png"/>
                     </Button.Background>
                 </Button>
-                <Button x:Name="Ellipse" Content="" Width="28" Click="ChangeToolToEllipse">
+                <Button x:Name="Ellipse" Content="" Width="28" Click="ChangeToolToEllipse" Margin="0,5">
                     <Button.Background>
-                        <ImageBrush ImageSource="https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Ellipse_black.svg/300px-Ellipse_black.svg.png"/>
+                        <ImageBrush ImageSource="Resources/ellipse.png"/>
                     </Button.Background>
                 </Button>
-                <Button x:Name="Line" Content="" Width="28" Click="ChangeToolToLine">
+                <Button x:Name="Line" Content="" Width="28" Click="ChangeToolToLine" Margin="0,5">
                     <Button.Background>
-                        <ImageBrush ImageSource="http://simpleicon.com/wp-content/uploads/vector-path-line.png"/>
+                        <ImageBrush ImageSource="Resources/line.png"/>
                     </Button.Background>
                 </Button>
-                <Button x:Name="Fill" Content="" Width="28" Click="ChangeToolToFill">
+                <Button x:Name="Fill" Content="" Width="28" Click="ChangeToolToFill" Margin="0,5">
                     <Button.Background>
-                        <ImageBrush ImageSource="https://cdn2.iconfinder.com/data/icons/windows-8-metro-style/128/paint_bucket.png"/>
+                        <ImageBrush ImageSource="Resources/bucket.png"/>
                     </Button.Background>
                 </Button>
-                <Rectangle Name="ColorButton" Height="21" Width="21" Stroke="#FFC7C7C7" Fill="Black"  MouseLeftButtonDown="ChangeActiveColor">
+                <Rectangle Name="ColorButton" Height="21" Width="21" Stroke="#FFC7C7C7" Fill="Black"  MouseLeftButtonDown="ChangeActiveColor" Margin="0,5">
                     <Rectangle.Effect>
                         <DropShadowEffect Color="#FF7C7C7C"/>
                     </Rectangle.Effect>
