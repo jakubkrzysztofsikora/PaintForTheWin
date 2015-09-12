@@ -11,7 +11,7 @@ namespace PaintForTheWin.ProgramCommands
 {
     public class Reverse : IProgramCommand
     {
-        private eDirection _direction;
+        private readonly eDirection _direction;
         private readonly int _actionToChange;
         private Canvas _canvasNode;
         private TransformGroup _transformationSettings;
