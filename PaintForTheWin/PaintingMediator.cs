@@ -33,6 +33,11 @@ namespace PaintForTheWin
 
                 _canvasService.Apply(action);
             }
+            else
+            {
+                //Fill fillAction = _commandFactory.CreateFillCommand(_currentTool, (Canvas)sender) as Fill;
+                //_canvasService.Apply(fillAction);
+            }
         }
 
         public void OnCanvasMouseMove(object sender, MouseEventArgs e)
@@ -56,11 +61,11 @@ namespace PaintForTheWin
             }
         }
 
-        public void OnCanvasChildClick(object sender, MouseButtonEventArgs e)
+        public void OnCanvasChildClick(object sender, RoutedEventArgs routedEventArgs)
         {
             if (IsCurrentToolFloodFill())
             {
-                Fill fillAction = _commandFactory.CreateFillCommand(_currentTool, (UIElement) sender, e) as Fill;
+                Fill fillAction = _commandFactory.CreateFillCommand(_currentTool, (UIElement) sender) as Fill;
                 _canvasService.Apply(fillAction);
             }
         }

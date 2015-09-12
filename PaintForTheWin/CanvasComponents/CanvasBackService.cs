@@ -15,7 +15,7 @@ namespace PaintForTheWin.CanvasComponents
     public class CanvasBackService
     {
         private Canvas _canvasNode;
-        private ChangeStack _changeStack = new ChangeStack();
+        private readonly ChangeStack _changeStack = new ChangeStack();
 
         public void SetCanvas(Canvas canvas)
         {
@@ -40,7 +40,8 @@ namespace PaintForTheWin.CanvasComponents
 
         public RenderTargetBitmap GetCanvasPreparedToSave()
         {
-            RenderTargetBitmap result = new RenderTargetBitmap((int)_canvasNode.RenderSize.Width, (int)_canvasNode.RenderSize.Height, 96d, 96d, System.Windows.Media.PixelFormats.Default);
+            RenderTargetBitmap result = new RenderTargetBitmap((int)_canvasNode.Width, (int)_canvasNode.Height, 96d, 96d, System.Windows.Media.PixelFormats.Pbgra32);
+            
             result.Render(_canvasNode);
 
             return result;
@@ -66,8 +67,8 @@ namespace PaintForTheWin.CanvasComponents
         {
             if (_canvasNode.Children.Count > 0)
             {
-                Shape lastChild = _canvasNode.Children[_canvasNode.Children.Count - 1] as Shape;
-                lastChild.MouseDown += paintingMediator.OnCanvasChildClick;
+                UIElement lastChild = _canvasNode.Children[_canvasNode.Children.Count - 1] as UIElement;
+                lastChild.AddHandler(UIElement.MouseDownEvent, new RoutedEventHandler(paintingMediator.OnCanvasChildClick));
             }
         }
     }

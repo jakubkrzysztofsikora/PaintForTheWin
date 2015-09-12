@@ -240,9 +240,9 @@ namespace PaintTests
             paint.Rotate(degrees);
 
             //Then
-            RotateTransform rotateTransform = new RotateTransform(degrees);
 
-            Assert.AreEqual(rotateTransform.Value, canvasNode.RenderTransform.Value);
+            Assert.AreEqual(canvasNode.Height, canvasNode.Width);
+            Assert.AreEqual(canvasNode.Width, canvasNode.Height);
         }
 
         private void ImitateMouseDownOn(UIElement element)

@@ -35,6 +35,11 @@ namespace PaintForTheWin.Ecosystem
             return new PaintingColor(color);
         }
 
+        public static PaintingColor CreateFromNativeObject(Color newColor)
+        {
+            return new PaintingColor(newColor);
+        }
+
         public static PaintingColor CreateDefault()
         {
             Color color = new Color();
