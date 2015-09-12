@@ -30,14 +30,37 @@ namespace PaintForTheWin.ProgramCommands
 
             RotateTransform rotate = _currentSettings.Children[0] as RotateTransform;
             TranslateTransform translate = _currentSettings.Children[1] as TranslateTransform;
+            
+            SetRotateOfCanvas(element, rotate);
+            SetTranslateOfCanvas(element, rotate, translate);
+           
+            element.RenderTransform = _currentSettings;
+            _canvasNode = element;
+        }
+
+        public void Retract()
+        {
+            _canvasNode.RenderTransform = _oldSettings;
+        }
+
+        public int GetActionToChangeId()
+        {
+            return _actionToChange;
+        }
+
+        private void SetRotateOfCanvas(Canvas canvas, RotateTransform rotate)
+        {
             rotate.Angle += _degrees;
-            rotate.CenterX = element.RenderSize.Width / 2;
-            rotate.CenterY = element.RenderSize.Height / 2;
+            rotate.CenterX = canvas.RenderSize.Width / 2;
+            rotate.CenterY = canvas.RenderSize.Height / 2;
+        }
 
-            double newTranslateX = element.RenderSize.Height / 2 - element.RenderSize.Width / 2;
-            double newTranslateY = element.RenderSize.Width / 2 - element.RenderSize.Height / 2;
+        private void SetTranslateOfCanvas(Canvas canvas, RotateTransform rotate, TranslateTransform translate)
+        {
+            double newTranslateX = canvas.RenderSize.Height / 2 - canvas.RenderSize.Width / 2;
+            double newTranslateY = canvas.RenderSize.Width / 2 - canvas.RenderSize.Height / 2;
 
-            if (!CanvasInHorizontalPosition(element))
+            if (!CanvasInHorizontalPosition(canvas))
             {
                 newTranslateX *= -1;
                 newTranslateY *= -1;
@@ -53,20 +76,6 @@ namespace PaintForTheWin.ProgramCommands
                 translate.X += newTranslateX;
                 translate.Y += newTranslateY;
             }
-            
-           
-            element.RenderTransform = _currentSettings;
-            _canvasNode = element;
-        }
-
-        public void Retract()
-        {
-            _canvasNode.RenderTransform = _oldSettings;
-        }
-
-        public int GetActionToChangeId()
-        {
-            return _actionToChange;
         }
 
         private bool IsCanvasBeingFliped(RotateTransform rotate)
