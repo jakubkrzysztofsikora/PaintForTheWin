@@ -92,7 +92,7 @@ namespace PaintTests
             Assert.AreEqual(expectedSize, canvasService.GetSize());
         }
 
-        [TestCase("c:\\test.bmp")]
+        [TestCase("g:\\test.bmp")]
         [STAThread]
         public void ShouldLoadBmpImage(string path)
         {
@@ -117,7 +117,7 @@ namespace PaintTests
             Assert.AreEqual(expectedBrush.ImageSource.ToString(), actualBrush.ImageSource.ToString());
         }
 
-        [TestCase("g:\\testSave.bmp")]
+        [TestCase("g:\\test.bmp")]
         [STAThread]
         public void ShouldSaveImageToBmp(string expectedSaveLocationString)
         {

@@ -14,12 +14,13 @@ namespace PaintForTheWin.Ecosystem
         {
             BitmapEncoder imgEncoder = GetEncoder(extenstion);
             BitmapFrame outputFrame = BitmapFrame.Create(preparedCanvas);
-
+            
             imgEncoder.Frames.Add(outputFrame);
 
             using (var file = File.OpenWrite(location.AbsolutePath))
             {
                 imgEncoder.Save(file);
+                file.Dispose();
             }
         }
 

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,6 +9,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using Brush = System.Windows.Media.Brush;
+using Size = System.Windows.Size;
 
 namespace PaintForTheWin.ProgramCommands
 {
@@ -63,7 +67,14 @@ namespace PaintForTheWin.ProgramCommands
 
         private BitmapImage LoadImageFromUri(Uri path)
         {
-            return new BitmapImage(path);
+            BitmapImage img = new BitmapImage();
+            img.BeginInit();
+            img.CacheOption = BitmapCacheOption.OnLoad;
+            img.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
+            img.UriSource = path;
+            img.EndInit();
+
+            return img;
         }
     }
 }
