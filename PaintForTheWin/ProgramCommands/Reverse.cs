@@ -14,7 +14,7 @@ namespace PaintForTheWin.ProgramCommands
         private eDirection _direction;
         private readonly int _actionToChange;
         private Canvas _canvasNode;
-        private ScaleTransform _transformationSettings;
+        private TransformGroup _transformationSettings;
 
         public Reverse(int actionToChange, eDirection direction)
         {
@@ -24,29 +24,23 @@ namespace PaintForTheWin.ProgramCommands
 
         public void Execute(Canvas element)
         {
-            if (!(element.RenderTransform is ScaleTransform))
-            {
-                _transformationSettings = new ScaleTransform();
-            }
-            else
-            {
-                _transformationSettings = element.RenderTransform as ScaleTransform;
-            }
+            InitializeSettings(element);
+            ScaleTransform scaleTransform = _transformationSettings.Children[2] as ScaleTransform;
 
-            _transformationSettings.CenterX = element.RenderSize.Width / 2;
-            _transformationSettings.CenterY = element.RenderSize.Height / 2;
+            scaleTransform.CenterX = element.RenderSize.Width / 2;
+            scaleTransform.CenterY = element.RenderSize.Height / 2;
 
             switch (_direction)
             {
                 case eDirection.Horizontal:
-                    _transformationSettings.ScaleY *= -1;
+                    scaleTransform.ScaleY *= -1;
                     break;
                 case eDirection.Vertical:
-                    _transformationSettings.ScaleX *= -1;
+                    scaleTransform.ScaleX *= -1;
                     break;
                 default:
-                    _transformationSettings.ScaleX = 0;
-                    _transformationSettings.ScaleY = 0;
+                    scaleTransform.ScaleX = 0;
+                    scaleTransform.ScaleY = 0;
                     break;
             }
             
@@ -56,13 +50,15 @@ namespace PaintForTheWin.ProgramCommands
 
         public void Retract()
         {
+            ScaleTransform scaleTransform = _transformationSettings.Children[2] as ScaleTransform;
+
             switch (_direction)
             {
                 case eDirection.Horizontal:
-                    _transformationSettings.ScaleY *= -1;
+                    scaleTransform.ScaleY *= -1;
                     break;
                 case eDirection.Vertical:
-                    _transformationSettings.ScaleX *= -1;
+                    scaleTransform.ScaleX *= -1;
                     break;
             }
 
@@ -72,6 +68,22 @@ namespace PaintForTheWin.ProgramCommands
         public int GetActionToChangeId()
         {
             return _actionToChange;
+        }
+
+        private void InitializeSettings(Canvas element)
+        {
+            if (!(element.RenderTransform is TransformGroup))
+            {
+
+                _transformationSettings = new TransformGroup();
+                _transformationSettings.Children.Add(new RotateTransform());
+                _transformationSettings.Children.Add(new TranslateTransform());
+                _transformationSettings.Children.Add(new ScaleTransform());
+            }
+            else
+            {
+                _transformationSettings = element.RenderTransform as TransformGroup;
+            }
         }
     }
 }

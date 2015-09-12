@@ -32,7 +32,11 @@ namespace PaintForTheWin.ProgramCommands
             TranslateTransform translate = _currentSettings.Children[1] as TranslateTransform;
             
             SetRotateOfCanvas(element, rotate);
-            SetTranslateOfCanvas(element, rotate, translate);
+
+            if (!IsCanvasBeingFliped(rotate))
+                SetTranslateOfCanvas(element, translate);
+            else
+                DontTranslate(translate);
            
             element.RenderTransform = _currentSettings;
             _canvasNode = element;
@@ -51,11 +55,20 @@ namespace PaintForTheWin.ProgramCommands
         private void SetRotateOfCanvas(Canvas canvas, RotateTransform rotate)
         {
             rotate.Angle += _degrees;
-            rotate.CenterX = canvas.RenderSize.Width / 2;
-            rotate.CenterY = canvas.RenderSize.Height / 2;
+
+            if (!CanvasInHorizontalPosition(canvas) && IsCanvasBeingFliped(rotate))
+            {
+                rotate.CenterX = canvas.RenderSize.Height / 2;
+                rotate.CenterY = canvas.RenderSize.Width / 2;
+            }
+            else
+            {
+                rotate.CenterX = canvas.RenderSize.Width / 2;
+                rotate.CenterY = canvas.RenderSize.Height / 2;
+            }
         }
 
-        private void SetTranslateOfCanvas(Canvas canvas, RotateTransform rotate, TranslateTransform translate)
+        private void SetTranslateOfCanvas(Canvas canvas, TranslateTransform translate)
         {
             double newTranslateX = canvas.RenderSize.Height / 2 - canvas.RenderSize.Width / 2;
             double newTranslateY = canvas.RenderSize.Width / 2 - canvas.RenderSize.Height / 2;
@@ -66,21 +79,19 @@ namespace PaintForTheWin.ProgramCommands
                 newTranslateY *= -1;
             }
 
-            if (IsCanvasBeingFliped(rotate))
-            {
-                translate.X = 0;
-                translate.Y = 0;
-            }
-            else
-            {
-                translate.X += newTranslateX;
-                translate.Y += newTranslateY;
-            }
+            translate.X += newTranslateX;
+            translate.Y += newTranslateY;
+        }
+
+        private void DontTranslate(TranslateTransform translate)
+        {
+            translate.X = 0;
+            translate.Y = 0;
         }
 
         private bool IsCanvasBeingFliped(RotateTransform rotate)
         {
-            return Math.Abs(rotate.Angle - 180) < 0.01 || Math.Abs(rotate.Angle - (-180)) < 0.01;
+            return Math.Abs(rotate.Angle - 180) < 0.01 || Math.Abs(rotate.Angle - (-180)) < 0.01 || _degrees == 180;
         }
 
         private bool CanvasInHorizontalPosition(Canvas canvas)
@@ -96,6 +107,7 @@ namespace PaintForTheWin.ProgramCommands
                 _currentSettings = new TransformGroup();
                 _currentSettings.Children.Add(new RotateTransform());
                 _currentSettings.Children.Add(new TranslateTransform());
+                _currentSettings.Children.Add(new ScaleTransform());
             }
             else
             {
