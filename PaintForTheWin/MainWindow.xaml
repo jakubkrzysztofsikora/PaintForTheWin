@@ -20,14 +20,15 @@
 
     <Grid Background="LightGray">
         <Menu VerticalAlignment="Top" Background="#FF3F3F46">
-            <MenuItem VerticalAlignment="Top" HorizontalAlignment="Center" Header="_File" Foreground="#FFC7C7C7">
+            <MenuItem VerticalAlignment="Top" HorizontalAlignment="Center" Header="_Paint For The Win" Foreground="White" IsEnabled="False" />
+            <MenuItem VerticalAlignment="Top" HorizontalAlignment="Center" Header="_File" Foreground="White">
                 <MenuItem Header="_New" Command="New" Foreground="Black" />
                 <MenuItem Header="_Open" Command="Open" Foreground="Black" />
                 <MenuItem Header="_Save" Command="Save" Foreground="Black" />
                 <Separator />
                 <MenuItem Header="_Exit" Command="Close" Foreground="Black" />
             </MenuItem>
-            <MenuItem VerticalAlignment="Top" HorizontalAlignment="Center" Header="_Edit" SubmenuOpened="MenuEdit_OnClick" Foreground="#FFC7C7C7">
+            <MenuItem VerticalAlignment="Top" HorizontalAlignment="Center" Header="_Edit" SubmenuOpened="MenuEdit_OnClick" Foreground="White">
                 <MenuItem Name="UndoButton" Header="_Undo" Command="Undo" Foreground="Black"/>
                 <MenuItem Header="_Change Image Size" Click="MenuItemResize_OnClick" Foreground="Black" />
                 <Separator />
