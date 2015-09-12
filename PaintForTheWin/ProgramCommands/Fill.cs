@@ -14,7 +14,6 @@ namespace PaintForTheWin.ProgramCommands
     class Fill : IProgramCommand
     {
         private PaintingColor _newColor;
-        private PaintingColor _colorToOverlay;
         private Brush _oldBrush;
         private UIElement _sender;
         private int _actionToChange;
@@ -24,20 +23,6 @@ namespace PaintForTheWin.ProgramCommands
             _newColor = newColor;
             _sender = sender as UIElement;
             _actionToChange = actionToChange;
-
-            switch (GetTypeOfObject(_sender))
-            {
-                case ePaintableObject.Canvas:
-                    Canvas canvas = (Canvas)_sender;
-                    SolidColorBrush canvasBrush = canvas.Background as SolidColorBrush;
-                    _colorToOverlay = PaintingColor.CreateFromNativeObject(canvasBrush.Color);
-                    break;
-                case ePaintableObject.Shape:
-                    Shape shape = (Shape)_sender;
-                    SolidColorBrush shapeBrush = shape.Fill as SolidColorBrush;
-                    _colorToOverlay = PaintingColor.CreateFromNativeObject(shapeBrush.Color);
-                    break;
-            }
         }
 
         public void Execute(Canvas element)
@@ -82,11 +67,11 @@ namespace PaintForTheWin.ProgramCommands
 
         private ePaintableObject GetTypeOfObject(UIElement element)
         {
-            if (_sender is Canvas)
+            if (element is Canvas)
                 return ePaintableObject.Canvas;
-            else if (_sender is Line)
+            else if (element is Line)
                 return ePaintableObject.Line;
-            else if (_sender is Shape)
+            else if (element is Shape)
                 return ePaintableObject.Shape;
             else
                 return ePaintableObject.Default;

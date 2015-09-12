@@ -90,7 +90,8 @@ namespace PaintForTheWin.ProgramCommands
 
         private bool CanvasInHorizontalPosition(Canvas canvas)
         {
-            return canvas.RenderTransform.Value.OffsetX >= 0;
+            RotateTransform rotateSettings = _currentSettings.Children[0] as RotateTransform;
+            return Math.Abs(rotateSettings.Angle % 180) < 0.01 || Math.Abs(-rotateSettings.Angle % 180) < 0.01;
         }
 
         private void InitializeSettings(Canvas element)
