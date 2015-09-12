@@ -28,6 +28,10 @@ namespace PaintForTheWin
             canvasNode.MouseDown += _paint.OnCanvasMouseDown;
             canvasNode.MouseMove += _paint.OnCanvasMouseMove;
             canvasNode.MouseUp += _paint.OnCanvasMouseUp;
+            scrollViewer.MouseDown += _paint.OnCanvasMouseDown;
+            scrollViewer.MouseMove += _paint.OnCanvasMouseMove;
+            scrollViewer.MouseUp += _paint.OnCanvasMouseUp;
+
             canvasService.SetCanvas(canvasNode);
             _paint.SetCanvasService(canvasService);
             _paint.ChangeToolTo(eTool.Pencil);
@@ -182,6 +186,22 @@ namespace PaintForTheWin
 
             _currentlyClickedToolButton = button;
             _currentlyClickedToolButton.Effect = new DropShadowEffect();
+        }
+
+        private void ToolBar_Loaded(object sender, RoutedEventArgs e)
+        {
+            ToolBar toolBar = sender as ToolBar;
+            var overflowGrid = toolBar.Template.FindName("OverflowGrid", toolBar) as FrameworkElement;
+            if (overflowGrid != null)
+            {
+                overflowGrid.Visibility = Visibility.Collapsed;
+            }
+
+            var mainPanelBorder = toolBar.Template.FindName("MainPanelBorder", toolBar) as FrameworkElement;
+            if (mainPanelBorder != null)
+            {
+                mainPanelBorder.Margin = new Thickness(0);
+            }
         }
     }
 }

@@ -193,7 +193,7 @@ namespace PaintTests
             ImitateMouseDownOn(drawedLine);
 
             //Then
-            Assert.AreEqual(paint.GetActiveColor().ToString(),drawedLine.Fill.ToString());
+            Assert.AreEqual(paint.GetActiveColor().ToString(),drawedLine.Stroke.ToString());
         }
 
         [TestCase(eDirection.Horizontal)]

@@ -39,13 +39,15 @@
                 <MenuItem Header="Reverse Vertically" Click="MenuItemReverseVertically_OnClick" Foreground="Black" />
             </MenuItem>
         </Menu>
-        <Canvas x:Name="canvasNode" ClipToBounds="True" Background="White" Height="480" VerticalAlignment="Top" Margin="38,18,0,0" HorizontalAlignment="Left" Width="720">
-            <Canvas.Effect>
-                <DropShadowEffect Color="LightGray" BlurRadius="10"/>
-            </Canvas.Effect>
-        </Canvas>
+        <ScrollViewer x:Name="scrollViewer" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="36,18,0,0">
+            <ScrollViewer.Effect>
+                <DropShadowEffect Color="#FFE0E0E0"/>
+            </ScrollViewer.Effect>
+            <Canvas x:Name="canvasNode" ClipToBounds="True" Background="White" Height="470" VerticalAlignment="Top" HorizontalAlignment="Left" Width="724">
+            </Canvas>
+        </ScrollViewer>
         <ToolBarTray HorizontalAlignment="Left" Width="36" Orientation="Vertical" Margin="0,18,0,0" Background="#FF3F3F46">
-            <ToolBar x:Name="toolBar" HorizontalAlignment="Right" Width="36" ToolBarTray.IsLocked="True" Background="{x:Null}" Foreground="{x:Null}" Height="246" VerticalAlignment="Top" Margin="0,0,0,-76" >
+            <ToolBar x:Name="toolBar" HorizontalAlignment="Right" Width="36" ToolBarTray.IsLocked="True" Background="{x:Null}" Foreground="{x:Null}" Height="246" Loaded="ToolBar_Loaded" VerticalAlignment="Top" Margin="0,0,0,-76" >
                 <Button x:Name="pencil" Content="" Width="28" Click="ChangeToolToPencil" Margin="0,5">
                     <Button.Background>
                         <ImageBrush ImageSource="Resources/pencil.png"/>
