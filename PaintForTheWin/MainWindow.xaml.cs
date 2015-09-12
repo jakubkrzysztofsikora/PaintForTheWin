@@ -28,9 +28,6 @@ namespace PaintForTheWin
             canvasNode.MouseDown += _paint.OnCanvasMouseDown;
             canvasNode.MouseMove += _paint.OnCanvasMouseMove;
             canvasNode.MouseUp += _paint.OnCanvasMouseUp;
-            scrollViewer.MouseDown += _paint.OnCanvasMouseDown;
-            scrollViewer.MouseMove += _paint.OnCanvasMouseMove;
-            scrollViewer.MouseUp += _paint.OnCanvasMouseUp;
 
             canvasService.SetCanvas(canvasNode);
             _paint.SetCanvasService(canvasService);

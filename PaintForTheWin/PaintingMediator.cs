@@ -20,7 +20,7 @@ namespace PaintForTheWin
         private CanvasBackService _canvasService;
         private readonly ProgramCommandFactory _commandFactory = new ProgramCommandFactory();
         private Draw _currentCommandInAction;
-        private FileSaver _saver = new FileSaver();
+        private readonly FileSaver _saver = new FileSaver();
 
         #region Event Handlers
 
